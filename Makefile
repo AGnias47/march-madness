@@ -1,4 +1,4 @@
-.PHONY: help clean tar static sonarqube dbstart dbstop dblogin createdb exportdb importdb
+.PHONY: help clean tar static sonarqube dbstart dbstop dblogin createdb exportdb importdb newdb
 
 help:	    ## Show this help message
 	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST)
@@ -32,3 +32,5 @@ exportdb:   ## Export the database
 
 importdb:   ## Import the database
 	psql -h localhost -p 5432 -U postgres -d march_madness -a -f db/march_madness.sql
+
+newdb: createdb importdb
