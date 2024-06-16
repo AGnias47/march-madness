@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 15.6 (Homebrew)
--- Dumped by pg_dump version 15.6 (Homebrew)
+-- Dumped from database version 16.3
+-- Dumped by pg_dump version 16.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -523,7 +523,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 --
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$600000$SXD05qYQgd2yK8WJGlZN5w$+TffJZ3LrDGM/OW7Hcs3jjEEr/HmdbEv3+1cgH6trRY=	2023-09-29 20:47:30.313266-04	t	admin				t	t	2023-09-29 20:47:10.457168-04
+1	pbkdf2_sha256$600000$SXD05qYQgd2yK8WJGlZN5w$+TffJZ3LrDGM/OW7Hcs3jjEEr/HmdbEv3+1cgH6trRY=	2023-09-30 00:47:30.313266+00	t	admin				t	t	2023-09-30 00:47:10.457168+00
 \.
 
 
@@ -576,39 +576,39 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 --
 
 COPY public.django_migrations (id, app, name, applied) FROM stdin;
-1	contenttypes	0001_initial	2023-09-24 13:21:35.060505-04
-2	auth	0001_initial	2023-09-24 13:21:35.296128-04
-3	admin	0001_initial	2023-09-24 13:21:35.367024-04
-4	admin	0002_logentry_remove_auto_add	2023-09-24 13:21:35.390918-04
-5	admin	0003_logentry_add_action_flag_choices	2023-09-24 13:21:35.412586-04
-6	contenttypes	0002_remove_content_type_name	2023-09-24 13:21:35.434661-04
-7	auth	0002_alter_permission_name_max_length	2023-09-24 13:21:35.441469-04
-8	auth	0003_alter_user_email_max_length	2023-09-24 13:21:35.447965-04
-9	auth	0004_alter_user_username_opts	2023-09-24 13:21:35.454629-04
-10	auth	0005_alter_user_last_login_null	2023-09-24 13:21:35.46091-04
-11	auth	0006_require_contenttypes_0002	2023-09-24 13:21:35.464378-04
-12	auth	0007_alter_validators_add_error_messages	2023-09-24 13:21:35.470207-04
-13	auth	0008_alter_user_username_max_length	2023-09-24 13:21:35.48557-04
-14	auth	0009_alter_user_last_name_max_length	2023-09-24 13:21:35.492627-04
-15	auth	0010_alter_group_name_max_length	2023-09-24 13:21:35.500817-04
-16	auth	0011_update_proxy_permissions	2023-09-24 13:21:35.507405-04
-17	auth	0012_alter_user_first_name_max_length	2023-09-24 13:21:35.515082-04
-18	sessions	0001_initial	2023-09-24 13:21:35.552108-04
-19	marchmadness	0001_initial	2023-09-24 14:01:16.713372-04
-20	marchmadness	0002_apranking_tournamentranking_school_championship_wins_and_more	2023-09-24 14:31:44.895413-04
-21	marchmadness	0003_alter_school_is_private	2023-09-24 14:51:11.516732-04
-22	marchmadness	0004_alter_school_home_arena_alter_school_location_and_more	2023-09-24 14:54:28.075818-04
-23	marchmadness	0005_apranking_year_tournamentranking_year	2023-09-24 15:06:48.032592-04
-24	marchmadness	0006_remove_game_game_id_remove_rivalry_rivalry_id_and_more	2023-09-24 15:13:08.968579-04
-25	marchmadness	0007_game_distinct_home_away	2023-09-24 15:27:11.087663-04
-26	marchmadness	0008_rename_away_team_game_opponent_and_more	2023-09-24 15:47:39.699051-04
-27	marchmadness	0009_remove_apranking_ranking_id_and_more	2023-09-24 18:14:47.994865-04
-28	marchmadness	0010_rename_team_apranking_school_name_and_more	2023-09-24 18:14:48.015153-04
-29	marchmadness	0011_tournamentranking_play_in	2023-09-24 18:22:02.974407-04
-30	marchmadness	0012_game_home_game	2023-09-29 22:15:28.309711-04
-31	marchmadness	0013_rename_conference_tournamentranking_region	2023-09-30 08:26:39.960034-04
-32	marchmadness	0014_tournament	2023-09-30 08:43:05.015156-04
-33	marchmadness	0015_remove_tournament_id_alter_school_name_and_more	2023-09-30 08:57:26.795009-04
+1	contenttypes	0001_initial	2023-09-24 17:21:35.060505+00
+2	auth	0001_initial	2023-09-24 17:21:35.296128+00
+3	admin	0001_initial	2023-09-24 17:21:35.367024+00
+4	admin	0002_logentry_remove_auto_add	2023-09-24 17:21:35.390918+00
+5	admin	0003_logentry_add_action_flag_choices	2023-09-24 17:21:35.412586+00
+6	contenttypes	0002_remove_content_type_name	2023-09-24 17:21:35.434661+00
+7	auth	0002_alter_permission_name_max_length	2023-09-24 17:21:35.441469+00
+8	auth	0003_alter_user_email_max_length	2023-09-24 17:21:35.447965+00
+9	auth	0004_alter_user_username_opts	2023-09-24 17:21:35.454629+00
+10	auth	0005_alter_user_last_login_null	2023-09-24 17:21:35.46091+00
+11	auth	0006_require_contenttypes_0002	2023-09-24 17:21:35.464378+00
+12	auth	0007_alter_validators_add_error_messages	2023-09-24 17:21:35.470207+00
+13	auth	0008_alter_user_username_max_length	2023-09-24 17:21:35.48557+00
+14	auth	0009_alter_user_last_name_max_length	2023-09-24 17:21:35.492627+00
+15	auth	0010_alter_group_name_max_length	2023-09-24 17:21:35.500817+00
+16	auth	0011_update_proxy_permissions	2023-09-24 17:21:35.507405+00
+17	auth	0012_alter_user_first_name_max_length	2023-09-24 17:21:35.515082+00
+18	sessions	0001_initial	2023-09-24 17:21:35.552108+00
+19	marchmadness	0001_initial	2023-09-24 18:01:16.713372+00
+20	marchmadness	0002_apranking_tournamentranking_school_championship_wins_and_more	2023-09-24 18:31:44.895413+00
+21	marchmadness	0003_alter_school_is_private	2023-09-24 18:51:11.516732+00
+22	marchmadness	0004_alter_school_home_arena_alter_school_location_and_more	2023-09-24 18:54:28.075818+00
+23	marchmadness	0005_apranking_year_tournamentranking_year	2023-09-24 19:06:48.032592+00
+24	marchmadness	0006_remove_game_game_id_remove_rivalry_rivalry_id_and_more	2023-09-24 19:13:08.968579+00
+25	marchmadness	0007_game_distinct_home_away	2023-09-24 19:27:11.087663+00
+26	marchmadness	0008_rename_away_team_game_opponent_and_more	2023-09-24 19:47:39.699051+00
+27	marchmadness	0009_remove_apranking_ranking_id_and_more	2023-09-24 22:14:47.994865+00
+28	marchmadness	0010_rename_team_apranking_school_name_and_more	2023-09-24 22:14:48.015153+00
+29	marchmadness	0011_tournamentranking_play_in	2023-09-24 22:22:02.974407+00
+30	marchmadness	0012_game_home_game	2023-09-30 02:15:28.309711+00
+31	marchmadness	0013_rename_conference_tournamentranking_region	2023-09-30 12:26:39.960034+00
+32	marchmadness	0014_tournament	2023-09-30 12:43:05.015156+00
+33	marchmadness	0015_remove_tournament_id_alter_school_name_and_more	2023-09-30 12:57:26.795009+00
 \.
 
 
@@ -617,7 +617,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 --
 
 COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
-jy8izuewgx4axmx88myxfmwxns86h6nv	.eJxVjMsOwiAURP-FtSHQSyu4dO83kPugUjWQlHZl_HfbpAvdzGLOmXmriOuS49rSHCdRF2XV6bcj5GcqO5AHlnvVXMsyT6R3RR-06VuV9Loe7t9Bxpa3tZfBcTcIsTHAYBGDhSCpQwuuY-rJkpzBsvE4sOvRjxiC8-MWTADq8wXnLDfw:1qmO8o:eUBO4Ptfr6_og6gJTCEQV4A0j0-C6t5ApEUST5LyEGk	2023-10-13 20:47:30.316606-04
+jy8izuewgx4axmx88myxfmwxns86h6nv	.eJxVjMsOwiAURP-FtSHQSyu4dO83kPugUjWQlHZl_HfbpAvdzGLOmXmriOuS49rSHCdRF2XV6bcj5GcqO5AHlnvVXMsyT6R3RR-06VuV9Loe7t9Bxpa3tZfBcTcIsTHAYBGDhSCpQwuuY-rJkpzBsvE4sOvRjxiC8-MWTADq8wXnLDfw:1qmO8o:eUBO4Ptfr6_og6gJTCEQV4A0j0-C6t5ApEUST5LyEGk	2023-10-14 00:47:30.316606+00
 \.
 
 
@@ -51370,6 +51370,7 @@ COPY public.marchmadness_tournament (year, left_top_region, left_bottom_region, 
 2018	South	West	East	Midwest
 2017	East	West	Midwest	South
 2016	South	West	East	Midwest
+2024	East	West	South	Midwest
 \.
 
 
@@ -51514,6 +51515,74 @@ Colgate	14	Midwest	2022	813	f
 Jacksonville State	15	Midwest	2022	814	f
 Texas Southern	16	Midwest	2022	815	t
 AMCC	16	Midwest	2022	816	t
+UNC	1	West	2024	817	f
+Arizona	2	West	2024	818	f
+Baylor	3	West	2024	819	f
+Alabama	4	West	2024	820	f
+St. Mary's	5	West	2024	821	f
+Clemson	6	West	2024	822	f
+Dayton	7	West	2024	823	f
+Mississippi State	8	West	2024	824	f
+Michigan State	9	West	2024	825	f
+Nevada	10	West	2024	826	f
+New Mexico	11	West	2024	827	f
+Grand Canyon	12	West	2024	828	f
+Charleston	13	West	2024	829	f
+Colgate	14	West	2024	830	f
+Long Beach State	15	West	2024	831	f
+Wagner	16	West	2024	832	t
+Howard	16	West	2024	833	t
+UConn	1	East	2024	834	f
+Iowa State	2	East	2024	835	f
+Illinois	3	East	2024	836	f
+Auburn	4	East	2024	837	f
+SDSU	5	East	2024	838	f
+BYU	6	East	2024	839	f
+Washington State	7	East	2024	840	f
+Memphis	8	East	2024	841	f
+FAU	9	East	2024	842	f
+Drake	10	East	2024	843	f
+Duquesne	11	East	2024	844	f
+UAB	12	East	2024	845	f
+Yale	13	East	2024	846	f
+Morehead State	14	East	2024	847	f
+South Dakota State	15	East	2024	848	f
+Stetson	16	East	2024	849	t
+Virginia	16	East	2024	850	t
+Houston	1	Midwest	2024	851	f
+Marquette	2	Midwest	2024	852	f
+Kentucky	3	Midwest	2024	853	f
+Duke	4	Midwest	2024	854	f
+Wisconsin	5	Midwest	2024	855	f
+Texas Tech	6	Midwest	2024	856	f
+Florida	7	Midwest	2024	857	f
+Nebraska	8	Midwest	2024	858	f
+Texas A&M	9	Midwest	2024	859	f
+Colorado Boulder	10	Midwest	2024	860	t
+NC State	11	Midwest	2024	861	f
+James Madison	12	Midwest	2024	862	f
+Vermont	13	Midwest	2024	863	f
+Oakland	14	Midwest	2024	864	f
+Western KY	15	Midwest	2024	865	f
+Longwood	16	Midwest	2024	866	f
+Boise State	10	Midwest	2024	867	t
+Purdue	1	South	2024	868	f
+Tennessee	2	South	2024	869	f
+Creighton	3	South	2024	870	f
+Kansas	4	South	2024	871	f
+Gonzaga	5	South	2024	872	f
+South Carolina	6	South	2024	873	f
+Texas	7	South	2024	874	f
+Utah State	8	South	2024	875	f
+TCU	9	South	2024	876	f
+CSU	10	South	2024	877	f
+Oregon	11	South	2024	878	f
+McNeese	12	South	2024	879	f
+Samford	13	South	2024	880	f
+Akron	14	South	2024	881	f
+Saint Peter's	15	South	2024	882	f
+Grambling State	16	South	2024	883	t
+Montana State	16	South	2024	884	t
 \.
 
 
@@ -51605,7 +51674,7 @@ SELECT pg_catalog.setval('public.marchmadness_rivalry_id_seq', 1, false);
 -- Name: marchmadness_tournamentranking_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.marchmadness_tournamentranking_id_seq', 816, true);
+SELECT pg_catalog.setval('public.marchmadness_tournamentranking_id_seq', 884, true);
 
 
 --

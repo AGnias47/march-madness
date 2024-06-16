@@ -32,6 +32,3 @@ exportdb:   ## Export the database
 
 importdb:   ## Import the database
 	psql -h localhost -p 5432 -U postgres -d march_madness -a -f db/march_madness.sql
-
-
-

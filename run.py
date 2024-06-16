@@ -95,7 +95,6 @@ if random_api_key := os.getenv("RANDOM_API_KEY"):
     seed = seed_via_random_api(0, 10_000, random_api_key)
     print(f"Seeded with {seed}")
 
-
 tournament = MarchMadnessTournament(
     year=args.year,
     prediction_method=prediction_method,
