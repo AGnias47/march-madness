@@ -166,12 +166,16 @@ def add_tournament_rankings(year):
 
 
 def add_tournament_info(year):
-    # TODO: This needs to be changeable
+    try:
+        ranking_year = importlib.import_module(f"tournament_rankings.r{year}")
+    except ModuleNotFoundError:
+        logging.error(f"No tournament rankings found for year {year}")
+        raise
     defaults = {
-        "left_top_region": EAST,
-        "left_bottom_region": WEST,
-        "right_top_region": SOUTH,
-        "right_bottom_region": MIDWEST,
+        "left_top_region": ranking_year.region_location["left_top_region"],
+        "left_bottom_region": ranking_year.region_location["left_bottom_region"],
+        "right_top_region": ranking_year.region_location["right_top_region"],
+        "right_bottom_region": ranking_year.region_location["right_bottom_region"],
     }
     unique_fields = {"year": year}
     Tournament.objects.update_or_create(defaults=defaults, **unique_fields)

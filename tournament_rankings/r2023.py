@@ -1,3 +1,15 @@
+WEST = "West"
+EAST = "East"
+SOUTH = "South"
+MIDWEST = "Midwest"
+
+region_location = {
+    "left_top_region": SOUTH,
+    "left_bottom_region": EAST,
+    "right_top_region": MIDWEST,
+    "right_bottom_region": WEST,
+}
+
 south = {
     1: "Alabama",
     2: "Arizona",
