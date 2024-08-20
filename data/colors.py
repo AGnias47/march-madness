@@ -2,9 +2,12 @@
 Module for gathering and parsing data on school colors
 """
 
+import logging
 from enum import Enum
 from data.espn import get_teams_from_api, get_name
 import webcolors
+
+logger = logging.getLogger(__name__)
 
 
 class Colors(Enum):
@@ -41,10 +44,13 @@ def get_all_school_colors(session):
                 "secondary_color": SCHOOL_COLOR_DICT[team_name]["secondary_color"],
             }
         else:
-            colors_dict[team_name] = {
-                "primary_color": get_color_name(team["color"]),
-                "secondary_color": get_color_name(team.get("alternateColor")),
-            }
+            try:
+                colors_dict[team_name] = {
+                    "primary_color": get_color_name(team["color"]),
+                    "secondary_color": get_color_name(team.get("alternateColor")),
+                }
+            except KeyError:
+                logger.warning(f"[warning] Could not find colors for {team_name}")
     return colors_dict
 
 

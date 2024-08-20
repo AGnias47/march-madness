@@ -1,25 +1,22 @@
 #!/usr/bin/env python
 
+"""
+Adds data related to a specific tournament year.
+"""
+
 import argparse
 import datetime
 import importlib
 import logging
-from math import isnan
 import os
+
+# Django setup to use models
+import sys
 
 from bs4 import BeautifulSoup
 
 from data.games import get_regular_season_games
-from data.schools import (
-    get_all_d1_schools,
-    add_names_to_schools,
-    add_location_and_is_private_to_dataframe,
-    add_team_colors_to_dataframe,
-)
 from helpers.sessions import limiting_retrying_session
-
-# Django setup to use models
-import sys
 
 sys.path.append("mmsite/")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mmsite.settings")
@@ -27,15 +24,15 @@ import django  # noqa: E402
 
 django.setup()
 
-from marchmadness.models import (  # noqa: E402
-    School,
-    Game,
+from marchmadness.models import (
     APRanking,
-    TournamentRanking,
+    Game,
     Tournament,
+    TournamentRanking,
 )
 
 # Constants
+CURRENT_YEAR = datetime.datetime.now().year
 AP_RANKINGS = "https://www.ncaa.com/rankings/basketball-men/d1/associated-press"
 WEST = "West"
 EAST = "East"
@@ -52,47 +49,9 @@ logging.basicConfig(
 SESSION = limiting_retrying_session()
 
 
-def get_parens_num(prov_str):
-    return int(prov_str.split(")")[0].split("(")[1])
-
-
-def insert_bool(val):
-    if isnan(val):
-        return False
-    return val
-
-
 def parse_score(score):
     score_split = score.split("-")
     return int(score_split[0]), int(score_split[1])
-
-
-def add_schools():
-    logging.info("Getting school data")
-    df = get_all_d1_schools()
-    logging.info("Adding short names to schools")
-    add_names_to_schools(df)
-    logging.info("Adding team colors")
-    add_team_colors_to_dataframe(SESSION, df)
-    logging.info("Adding location and is_private info")
-    add_location_and_is_private_to_dataframe(df)
-    df = df[~df["Name"].duplicated(keep=False)]
-    for i, row in df.iterrows():
-        defaults = {
-            "formal_name": row["School"],
-            "nickname": row["Nickname"],
-            "home_arena": row["Home arena"],
-            "conference": row["Conference"],
-            "tournament_appearances": get_parens_num(row["Tournament appearances"]),
-            "final_four_appearances": get_parens_num(row["Final Four appearances"]),
-            "championship_wins": get_parens_num(row["Championship wins"]),
-            "primary_color": row["Primary Color"],
-            "secondary_color": row["Secondary Color"],
-            "location": row["Location"],
-            "is_private": insert_bool(row["Is Private"]),
-        }
-        unique_fields = {"name": row["Name"]}
-        School.objects.update_or_create(defaults=defaults, **unique_fields)
 
 
 def add_games(year):
@@ -131,6 +90,7 @@ def add_ap_ranking(year):
         ranking = int(td[0].string)
         defaults = {"ranking": ranking}
         unique_fields = {"school_name": name, "year": year}
+        APRanking.objects.all().delete()
         APRanking.objects.update_or_create(defaults=defaults, **unique_fields)
 
 
@@ -183,52 +143,16 @@ def add_tournament_info(year):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("-y", "--year", type=int, default=CURRENT_YEAR)
     parser.add_argument(
-        "-s",
-        "--schools",
-        action="store_true",
-        default=False,
-        help="If set, will add schools data to database",
+        "-e", "--no-games", action="store_true", default="False", help="Don't add games"
     )
-    parser.add_argument(
-        "-g",
-        "--games",
-        action="store_true",
-        default=False,
-        help="Add games data for the provided year",
-    )
-    parser.add_argument(
-        "-a",
-        "--ap-rankings",
-        action="store_true",
-        default=False,
-        help="Add AP rankings; can only be done for the current year",
-    )
-    parser.add_argument(
-        "-t",
-        "--tournament-rankings",
-        action="store_true",
-        help="Add tournament rankings",
-    )
-    parser.add_argument(
-        "-i",
-        "--tournament-info",
-        action="store_true",
-        help="Add tournament info",
-    )
-    parser.add_argument("-y", "--year", type=int, required=True)
     args = parser.parse_args()
-    if args.schools:
-        logging.info("Adding schools data")
-        add_schools()
-    if args.games:
+    if not args.no_games:
         add_games(args.year)
-    if args.ap_rankings:
-        if args.year == datetime.datetime.now().year:
-            add_ap_ranking(args.year)
-        else:
-            logging.warning("Unable to add AP rankings for previous years")
-    if args.tournament_rankings:
-        add_tournament_rankings(args.year)
-    if args.tournament_info:
-        add_tournament_info(args.year)
+    if args.year == CURRENT_YEAR:
+        add_ap_ranking(args.year)
+    else:
+        logging.warning("Unable to add AP rankings for previous years")
+    add_tournament_rankings(args.year)
+    add_tournament_info(args.year)
