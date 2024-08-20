@@ -81,6 +81,7 @@ def add_games(year):
 def add_ap_ranking(year):
     data = SESSION.get(AP_RANKINGS).content
     ap_ranks = BeautifulSoup(data, "html.parser")
+    schools_to_add = list()
     for d in ap_ranks.find("table").find_all("tr")[1:]:
         td = d.find_all("td")
         name = td[1].string.split("(")[0].strip()
@@ -88,10 +89,10 @@ def add_ap_ranking(year):
         if name in ap_replacement_dict:
             name = ap_replacement_dict[name]
         ranking = int(td[0].string)
-        defaults = {"ranking": ranking}
-        unique_fields = {"school_name": name, "year": year}
-        APRanking.objects.all().delete()
-        APRanking.objects.update_or_create(defaults=defaults, **unique_fields)
+        school = APRanking(school_name=name, ranking=ranking, year=year)
+        schools_to_add.append(school)
+    APRanking.objects.all().delete()
+    APRanking.objects.bulk_create(schools_to_add)
 
 
 def add_tournament_rankings_helper(data, conference_name, year):
@@ -143,16 +144,24 @@ def add_tournament_info(year):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-y", "--year", type=int, default=CURRENT_YEAR)
+    parser.add_argument("--year", "-y", type=int, default=CURRENT_YEAR)
     parser.add_argument(
-        "-e", "--no-games", action="store_true", default="False", help="Don't add games"
+         "--no-games", "-e", action="store_true", default="False", help="Don't add games"
     )
     args = parser.parse_args()
-    if not args.no_games:
-        add_games(args.year)
-    if args.year == CURRENT_YEAR:
-        add_ap_ranking(args.year)
+    year = args.year
+    logging.info(f"Adding tournament info for {year}")
+    if args.no_games:
+        logging.info("Not adding games")
+    else:
+        logging.info("Adding games")
+        add_games(year)
+    if year == CURRENT_YEAR:
+        logging.info("Adding AP rankings")
+        add_ap_ranking(year)
     else:
         logging.warning("Unable to add AP rankings for previous years")
-    add_tournament_rankings(args.year)
-    add_tournament_info(args.year)
+    logging.info("Adding tournament rankings")
+    add_tournament_rankings(year)
+    logging.info("Adding tournament info")
+    add_tournament_info(year)
