@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render
-from .models import School
+from .models import School, Game
 
 
 def index(request):
@@ -27,3 +27,16 @@ def select_school(request):
 def school_details(request, school_name):
     school = get_object_or_404(School, name=school_name)
     return render(request, "marchmadness/school_details.html", school.context())
+
+
+def school_games(request, school_name, season):
+    games = Game.objects.filter(school_name=school_name, season=season).order_by("date")
+    return render(
+        request,
+        "marchmadness/school_games.html",
+        {
+            "school_name": school_name,
+            "games": games,
+            "season": season,
+        },
+    )

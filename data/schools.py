@@ -50,7 +50,11 @@ def add_names_to_schools(df):
         spscnl = len(split_school_name)
         if school_name in FORMAL_TO_ABBREV:
             df.at[i, "Name"] = FORMAL_TO_ABBREV.get(school_name)
-        elif (spscnl == 3 or spscnl == 4) and school_name.startswith("University of"):
+        elif (
+            (spscnl == 3 or spscnl == 4)
+            and school_name.startswith("University of")
+            and "University of the Pacific" not in school_name
+        ):
             df.at[i, "Name"] = " ".join(split_school_name[2:])
         elif school_name.endswith("University") or school_name.endswith("College"):
             df.at[i, "Name"] = " ".join(school_name.split(" ")[:-1])

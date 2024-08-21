@@ -27,6 +27,9 @@
         <p>Tournament Appearances: {{ selected_school.tournament_appearances }}</p>
         <p>Final Four Appearances: {{ selected_school.final_four_appearances }}</p>
         <p>National Championships: {{ selected_school.championship_wins }}</p>
+        <h3>Games</h3>
+        <p><a href="{% url 'school_games' selected_school.name '2023-2024' %}">2023-2024</a></p>
+        <p><a href="{% url 'school_details' selected_school.name %}">Individual Page</a></p>
     {% endif %}
 </body>
 </html>

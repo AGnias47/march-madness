@@ -62,6 +62,7 @@ FORMAL_TO_ABBREV = {
     "California State University, Northridge": "CSUN",
     "University of California, Davis": "UC Davis",
     "University of California, Irvine": "UC Irvine",
+    "University of California, San Diego": "UCSD",
     "University of California, Santa Barbara": "UCSB",
     "College of Charleston": "Charleston",
     "North Carolina Agricultural and Technical State University": "NC A&T",
@@ -90,6 +91,8 @@ FORMAL_TO_ABBREV = {
     "University of Texas at Arlington": "UT Arlington",
     "University of Hawaii at Manoa": "Hawaii",
     "University of Nevada, Las Vegas": "UNLV",
+    "Alabama Agricultural and Mechanical University": "Alabama A&M",
+    "New Jersey Institute of Technology": "NJIT",
 }
 SPECIAL_CASES = {
     "UConn": "University of Connecticut",
