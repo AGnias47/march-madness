@@ -20,14 +20,21 @@ class School(models.Model):
     def __str__(self):
         return self.name
 
-    def view(self):
-        return (
-            f"Team: {self.name}\n"
-            f"Nickname: {self.nickname}\n"
-            f"Location: {self.location}\n"
-            f"Colors: {self.primary_color}, {self.secondary_color}\n"
-            f"Private: {self.is_private}"
-        )
+    def context(self):
+        return {
+            "name": self.name,
+            "formal_name": self.formal_name,
+            "nickname": self.nickname,
+            "home_arena": self.home_arena,
+            "conference": self.conference,
+            "tournament_appearances": self.tournament_appearances,
+            "final_four_appearances": self.final_four_appearances,
+            "championship_wins": self.championship_wins,
+            "primary_color": self.primary_color,
+            "secondary_color": self.secondary_color,
+            "location": self.location,
+            "is_private": self.is_private,
+        }
 
     @property
     def list_repr(self):
