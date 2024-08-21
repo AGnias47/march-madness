@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, render
 from .models import School
 
 
@@ -8,12 +8,20 @@ def index(request):
 
 
 def select_school(request):
-    if request.method == "POST":
-        selected_school = request.POST.get("school_name")
-        return redirect("school_details", school_name=selected_school)
     schools = School.objects.all()
     schools = sorted(schools, key=lambda x: x.name)
-    return render(request, "marchmadness/select_school.html", {"schools": schools})
+    if selected_school := request.GET.get("school_name"):
+        selected_school_obj = School.objects.get(name=selected_school)
+    else:
+        selected_school_obj = None
+    return render(
+        request,
+        "marchmadness/select_school.html",
+        {
+            "schools": schools,
+            "selected_school": selected_school_obj,
+        },
+    )
 
 
 def school_details(request, school_name):

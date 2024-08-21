@@ -1,12 +1,15 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'polls/style.css' %}">
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Select a School</title>
 </head>
 <body>
     <h1>Select a School</h1>
-    <form method="POST" action="">
+    <form method="GET" action="">
         {% csrf_token %}  <select name="school_name">
             {% for school in schools %}
                 <option value="{{ school.name }}">{{ school.name }}</option>
@@ -14,5 +17,16 @@
         </select>
         <input type="submit" value="Go">
     </form>
+    {% if selected_school %}
+        <h2>{{ selected_school.name}}</h2>
+        <p>Nickname: {{ selected_school.nickname }}</p>
+        <p>Location: {{ selected_school.location }}</p>
+        <p>Home Arena: {{ selected_school.home_arena }}</p>
+        <p>Conference: {{ selected_school.conference }}</p>
+        <p>Colors: {{ selected_school.primary_color }}, {{ selected_school.secondary_color }}</p>
+        <p>Tournament Appearances: {{ selected_school.tournament_appearances }}</p>
+        <p>Final Four Appearances: {{ selected_school.final_four_appearances }}</p>
+        <p>National Championships: {{ selected_school.championship_wins }}</p>
+    {% endif %}
 </body>
 </html>
