@@ -20,6 +20,15 @@ class School(models.Model):
     def __str__(self):
         return self.name
 
+    def view(self):
+        return (
+            f"Team: {self.name}\n"
+            f"Nickname: {self.nickname}\n"
+            f"Location: {self.location}\n"
+            f"Colors: {self.primary_color}, {self.secondary_color}\n"
+            f"Private: {self.is_private}"
+        )
+
     @property
     def list_repr(self):
         r = list()
