@@ -10,7 +10,7 @@ class APRanking(models.Model):
 
     class Meta:
         app_label = "marchmadness"
-        db_table = f"{app_label}_ap_ranking"
+        db_table = f"{app_label}_apranking"
         unique_together = (("school_name", "year"), ("ranking", "year"))
 
     def __str__(self):

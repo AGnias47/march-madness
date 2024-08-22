@@ -24,6 +24,7 @@ import django  # noqa: E402
 
 django.setup()
 
+from marchmadness.models.ap_ranking import APRanking  # noqa: E402
 from marchmadness.models.game import Game  # noqa: E402
 from marchmadness.models.tournament import Tournament  # noqa: E402
 from marchmadness.models.tournament_ranking import TournamentRanking  # noqa: E402

@@ -16,7 +16,7 @@ class TournamentRanking(models.Model):
     class Meta:
         unique_together = ("school_name", "year")
         app_label = "marchmadness"
-        db_table = f"{app_label}_tournament_ranking"
+        db_table = f"{app_label}_tournamentranking"
 
     def __str__(self):
         return f"{self.school_name}: {self.ranking} ({self.region})"
