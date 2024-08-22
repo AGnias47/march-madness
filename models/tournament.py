@@ -2,10 +2,10 @@
 
 import json
 import logging
-from models.group import Group
-
 import os
 import sys
+
+from models.group import Group
 
 sys.path.append("mmsite/")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mmsite.settings")
@@ -13,8 +13,7 @@ import django
 
 django.setup()
 
-from marchmadness.models import Tournament
-
+from marchmadness.models.tournament import Tournament
 
 logger = logging.getLogger(__name__)
 

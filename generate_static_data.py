@@ -26,9 +26,7 @@ import django  # noqa: E402
 
 django.setup()
 
-from marchmadness.models import (
-    School,  # noqa: E402
-)
+from marchmadness.models.school import School  # noqa: E402
 
 # Constants
 AP_RANKINGS = "https://www.ncaa.com/rankings/basketball-men/d1/associated-press"

@@ -24,12 +24,9 @@ import django  # noqa: E402
 
 django.setup()
 
-from marchmadness.models import (
-    APRanking,
-    Game,
-    Tournament,
-    TournamentRanking,
-)
+from marchmadness.models.game import Game  # noqa: E402
+from marchmadness.models.tournament import Tournament  # noqa: E402
+from marchmadness.models.tournament_ranking import TournamentRanking  # noqa: E402
 
 # Constants
 CURRENT_YEAR = datetime.datetime.now().year
@@ -146,7 +143,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--year", "-y", type=int, default=CURRENT_YEAR)
     parser.add_argument(
-         "--no-games", "-e", action="store_true", default="False", help="Don't add games"
+        "--no-games", "-e", action="store_true", default="False", help="Don't add games"
     )
     args = parser.parse_args()
     year = args.year

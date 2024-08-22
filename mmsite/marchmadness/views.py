@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render
-from .models import School, Game
+from .models.school import School
+from .models.game import Game
 
 
 def index(request):

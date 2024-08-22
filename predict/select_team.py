@@ -16,7 +16,7 @@ import django  # noqa: E402
 
 django.setup()
 
-from marchmadness.models import APRanking  # noqa: E402
+from marchmadness.models.ap_ranking import APRanking  # noqa: E402
 
 
 def random_selection(team_a, team_b, **kwargs):

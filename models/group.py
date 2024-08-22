@@ -1,7 +1,6 @@
-from collections import OrderedDict
-
 import os
 import sys
+from collections import OrderedDict
 
 sys.path.append("mmsite/")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mmsite.settings")
@@ -9,7 +8,7 @@ import django
 
 django.setup()
 
-from marchmadness.models import TournamentRanking
+from marchmadness.models.tournament_ranking import TournamentRanking
 
 
 class Group:
