@@ -29,6 +29,9 @@
         <p>National Championships: {{ selected_school.championship_wins }}</p>
         <h3>Games</h3>
         <p><a href="{% url 'school_games' selected_school.name '2023-2024' %}">2023-2024</a></p>
+        <p><a href="{% url 'school_games' selected_school.name '2022-2023' %}">2022-2023</a></p>
+        <p><a href="{% url 'school_games' selected_school.name '2021-2022' %}">2021-2022</a></p>
+        <p><a href="{% url 'school_games' selected_school.name '2020-2021' %}">2020-2021</a></p>
         <p><a href="{% url 'school_details' selected_school.name %}">Individual Page</a></p>
     {% endif %}
 </body>
