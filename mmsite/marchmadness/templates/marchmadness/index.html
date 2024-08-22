@@ -8,6 +8,12 @@
     <title>March Madness</title>
   </head>
   <body>
-    <p>{{ welcome_message }}</p>
+    <h1>{{ welcome_message }}</h1>
+    <h2>Current Season</h2>
+    <ul>
+      <li><a href="{% url 'evaluate' %}">Guided selection</a></li>
+      <li><a href="{% url 'predict' %}">Prediction Methods</a></li>
+    </ul>
+    <h2>Previous Seasons</h2>
   </body>
 </html>

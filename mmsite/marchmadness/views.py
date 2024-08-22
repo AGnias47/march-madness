@@ -42,3 +42,11 @@ def school_games(request, school_name, season):
             "losses": len([game for game in games if not game.win]),
         },
     )
+
+
+def evaluate(request, season=None):
+    return render(request, "marchmadness/evaluate.html", {"season": season})
+
+
+def predict(request, season=None):
+    return render(request, "marchmadness/predict.html", {"season": season})

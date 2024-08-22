@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Evaluate {{ season }} March Madness</title>
+</head>
+<body>
+    <h2>{{ round }}</h2>
+    <div class="row">
+        <div class="column">
+            <h3>{{ team_1.name }}</h3>
+            <p>Nickname: {{ team_1.nickname }}</p>
+            <p>Location: {{ team_1.location }}</p>
+            <p>Conference: {{ team_1.conference }}</p>
+            <p>Colors: {{ team_1.primary_color }}, {{ team_1.secondary_color }}</p>
+            <p>Tournament Appearances: {{ team_1.tournament_appearances }}</p>
+            <p>Final Four Appearances: {{ team_1.final_four_appearances }}</p>
+            <p>National Championships: {{ team_1.championship_wins }}</p>
+            <p>Season Record: {{ team_1_record}}</p>
+            <h4>Games</h4>
+                {% for game in team_1_games %}
+                        {% if game.home_game %}
+                            {% if game.win %}
+                                <p>(W) {{ game.date }}: vs. {{ game.opponent }}: {{ game.school_score }}-{{ game.opponent_score }}</p>
+                            {% else %}
+                                <p>(L) {{ game.date }}: vs. {{ game.opponent }}: {{ game.school_score }}-{{ game.opponent_score }}</p>
+                            {% endif %}
+                        {% else %}
+                            {% if game.win %}
+                                <p>(W) {{ game.date }}: @ {{ game.opponent }}: {{ game.school_score }}-{{ game.opponent_score }}</p>
+                            {% else %}
+                                <p>(L) {{ game.date }}: @ {{ game.opponent }}: {{ game.school_score }}-{{ game.opponent_score }}</p>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+        </div>
+        <div class="column">
+            <h3>{{ team_2.name }}</h3>
+            <p>Nickname: {{ team_2.nickname }}</p>
+            <p>Location: {{ team_2.location }}</p>
+            <p>Conference: {{ team_2.conference }}</p>
+            <p>Colors: {{ team_2.primary_color }}, {{ team_2.secondary_color }}</p>
+            <p>Tournament Appearances: {{ team_2.tournament_appearances }}</p>
+            <p>Final Four Appearances: {{ team_2.final_four_appearances }}</p>
+            <p>National Championships: {{ team_2.championship_wins }}</p>
+            <p>Season Record: {{ team_2_record}}</p>
+            <h4>Games</h4>
+                {% for game in team_2_games %}
+                        {% if game.home_game %}
+                            {% if game.win %}
+                                <p>(W) {{ game.date }}: vs. {{ game.opponent }}: {{ game.school_score }}-{{ game.opponent_score }}</p>
+                            {% else %}
+                                <p>(L) {{ game.date }}: vs. {{ game.opponent }}: {{ game.school_score }}-{{ game.opponent_score }}</p>
+                            {% endif %}
+                        {% else %}
+                            {% if game.win %}
+                                <p>(W) {{ game.date }}: @ {{ game.opponent }}: {{ game.school_score }}-{{ game.opponent_score }}</p>
+                            {% else %}
+                                <p>(L) {{ game.date }}: @ {{ game.opponent }}: {{ game.school_score }}-{{ game.opponent_score }}</p>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

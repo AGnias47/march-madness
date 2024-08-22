@@ -11,4 +11,6 @@ urlpatterns = [
         views.school_games,
         name="school_games",
     ),
+    path("evaluate/", views.evaluate, name="evaluate"),
+    path("predict/", views.predict, name="predict"),
 ]
