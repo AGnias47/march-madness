@@ -9,18 +9,19 @@
 </head>
 <body>
     <h1>Games for {{ school_name }} ({{ season }})</h1>
+    <h2>Record: {{ wins }}-{{ losses }}</h2>
     {% for game in games %}
         {% if game.home_game %}
             {% if game.win %}
-                <p>{{ game.date }}: vs. {{ game.opponent }}: {{ game.school_score }}-{{ game.opponent_score }} (W)</p>
+                <p>(W) {{ game.date }}: vs. {{ game.opponent }}: {{ game.school_score }}-{{ game.opponent_score }}</p>
             {% else %}
-                <p>{{ game.date }}: vs. {{ game.opponent }}: {{ game.school_score }}-{{ game.opponent_score }} (L)</p>
+                <p>(L) {{ game.date }}: vs. {{ game.opponent }}: {{ game.school_score }}-{{ game.opponent_score }}</p>
             {% endif %}
         {% else %}
             {% if game.win %}
-                <p>{{ game.date }}: @ {{ game.opponent }}: {{ game.school_score }}-{{ game.opponent_score }} (W)</p>
+                <p>(W) {{ game.date }}: @ {{ game.opponent }}: {{ game.school_score }}-{{ game.opponent_score }}</p>
             {% else %}
-                <p>{{ game.date }}: @ {{ game.opponent }}: {{ game.school_score }}-{{ game.opponent_score }} (L)</p>
+                <p>(L) {{ game.date }}: @ {{ game.opponent }}: {{ game.school_score }}-{{ game.opponent_score }}</p>
             {% endif %}
         {% endif %}
     {% endfor %}

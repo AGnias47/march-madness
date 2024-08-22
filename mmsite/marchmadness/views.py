@@ -7,7 +7,7 @@ def index(request):
     return render(request, "marchmadness/index.html", context)
 
 
-def select_school(request):
+def school(request):
     schools = School.objects.all()
     schools = sorted(schools, key=lambda x: x.name)
     if selected_school := request.GET.get("school_name"):
@@ -16,7 +16,7 @@ def select_school(request):
         selected_school_obj = None
     return render(
         request,
-        "marchmadness/select_school.html",
+        "marchmadness/school.html",
         {
             "schools": schools,
             "selected_school": selected_school_obj,
@@ -38,5 +38,7 @@ def school_games(request, school_name, season):
             "school_name": school_name,
             "games": games,
             "season": season,
+            "wins": len([game for game in games if game.win]),
+            "losses": len([game for game in games if not game.win]),
         },
     )
