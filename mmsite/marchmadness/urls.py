@@ -13,4 +13,10 @@ urlpatterns = [
     ),
     path("evaluate/", views.evaluate, name="evaluate"),
     path("predict/", views.predict, name="predict"),
+    path("predict/random", views.predict, name="predict_random"),
+    path("predict/ranked", views.predict, name="predict_ranked"),
+    path("predict/ap", views.predict, name="predict_ap"),
+    path("predict/lptr", views.predict, name="predict_lptr"),
+    path("predict/sigmodal", views.predict, name="predict_sigmodal"),
+    path("predict/nickname", views.predict, name="predict_nickname"),
 ]

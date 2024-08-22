@@ -2,9 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Prediction Methods</title>
 </head>
 <body>
-
+<h1>Prediction Methods</h1>
+<ul>
+  <li><a href="{% url 'predict_random' %}">Random Selection</a></li>
+  <li><a href="{% url 'predict_ranked' %}">Tournament Ranking</a></li>
+  <li><a href="{% url 'predict_ap' %}">AP Ranking</a></li>
+  <li><a href="{% url 'predict_lptr' %}">Weighted: Linearly Proportional</a></li>
+  <li><a href="{% url 'predict_sigmodal' %}">Weighted: Sigmodal</a></li>
+  <li><a href="{% url 'predict_nickname' %}">Sentiment Analysis based on Nickname</a></li>
+</ul>
 </body>
 </html>
