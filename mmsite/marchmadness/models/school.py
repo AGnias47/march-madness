@@ -1,6 +1,7 @@
 from django.db import models
 
 from .constants import MAX_SCHOOL_LEN
+from .game import Game
 
 
 class School(models.Model):
@@ -49,3 +50,17 @@ class School(models.Model):
         is_private_str = "yes" if self.is_private else "no"
         r.append(f"Private: {is_private_str}")
         return r
+
+    def games(self, season):
+        return Game.objects.filter(school_name=self.name, season=season).order_by(
+            "date"
+        )
+
+    def wins(self, season):
+        return self.games(season).filter(win=True).count()
+
+    def losses(self, season):
+        return self.games(season).filter(win=False).count()
+
+    def record(self, season):
+        return f"{self.wins(season)}-{self.losses(season)}"

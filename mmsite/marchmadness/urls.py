@@ -13,7 +13,7 @@ urlpatterns = [
     ),
     path("evaluate/", views.evaluate, name="evaluate"),
     path(
-        "evaluate/<int:season>/<str:region>/<str:tournament_round>/<str:matchup>/",
+        "evaluate/<int:year>/<str:region>/<str:tournament_round>/<str:matchup>/",
         views.evaluate,
         name="evaluate",
     ),

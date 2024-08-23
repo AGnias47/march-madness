@@ -9,6 +9,7 @@ from .group import Group
 
 class Bracket(models.Model):
     year = models.IntegerField(primary_key=True, unique=True)
+    season = models.CharField(max_length=9)
     left_top_group = models.ForeignKey(
         Group, on_delete=models.CASCADE, related_name="left_top_group"
     )
@@ -24,19 +25,21 @@ class Bracket(models.Model):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.left_top_group = Group.objects.create(year=self.year, region="left_top")
-        self.left_bottom_group = Group.objects.create(
-            year=self.year, region="left_bottom"
+        self.season = f"{self.year-1}-{str(self.year)}"
+        self.tournament_info = Tournament.objects.get(year=self.year)
+        self.left_top_group = Group.objects.create(
+            year=self.year, region=self.tournament_info.left_top_region
         )
-        self.right_top_group = Group.objects.create(year=self.year, region="right_top")
+        self.left_bottom_group = Group.objects.create(
+            year=self.year, region=self.tournament_info.left_bottom_region
+        )
+        self.right_top_group = Group.objects.create(
+            year=self.year, region=self.tournament_info.right_top_region
+        )
         self.right_bottom_group = Group.objects.create(
-            year=self.year, region="right_bottom"
+            year=self.year, region=self.tournament_info.right_bottom_region
         )
 
     class Meta:
         app_label = "marchmadness"
         db_table = f"{app_label}_bracket"
-
-    @property
-    def tournament_info(self):
-        return Tournament.objects.get(year=self.year).first()

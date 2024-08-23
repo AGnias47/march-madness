@@ -9,7 +9,7 @@
 </head>
 <body>
     <h1>Games for {{ school_name }} ({{ season }})</h1>
-    <h2>Record: {{ wins }}-{{ losses }}</h2>
+    <h2>Record: {{ record }}</h2>
     {% for game in games %}
         {% if game.home_game %}
             {% if game.win %}

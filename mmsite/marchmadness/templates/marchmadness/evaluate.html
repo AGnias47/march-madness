@@ -16,7 +16,7 @@
             <p>Tournament Appearances: {{ team_1.tournament_appearances }}</p>
             <p>Final Four Appearances: {{ team_1.final_four_appearances }}</p>
             <p>National Championships: {{ team_1.championship_wins }}</p>
-            <p>Season Record: {{ team_1_record}}</p>
+            <p>Season Record: {{ team_1_record }}</p>
             <h4>Games</h4>
                 {% for game in team_1_games %}
                         {% if game.home_game %}
@@ -43,7 +43,7 @@
             <p>Tournament Appearances: {{ team_2.tournament_appearances }}</p>
             <p>Final Four Appearances: {{ team_2.final_four_appearances }}</p>
             <p>National Championships: {{ team_2.championship_wins }}</p>
-            <p>Season Record: {{ team_2_record}}</p>
+            <p>Season Record: {{ team_2_record }}</p>
             <h4>Games</h4>
                 {% for game in team_2_games %}
                         {% if game.home_game %}

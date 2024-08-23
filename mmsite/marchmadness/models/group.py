@@ -22,7 +22,7 @@ class Group(models.Model):
 
     @property
     def play_in_teams(self):
-        return self.teams(play_in=True)
+        return self.teams.filter(play_in=True)
 
     def team(self, ranking):
         return self.teams.get(ranking=ranking)

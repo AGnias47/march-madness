@@ -1,8 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from .models.school import School
-from .models.game import Game
 from .models.bracket import Bracket
-from .models.group import Group
 
 
 def index(request):
@@ -33,36 +31,40 @@ def school_details(request, school_name):
 
 
 def school_games(request, school_name, season):
-    games = Game.objects.filter(school_name=school_name, season=season).order_by("date")
+    school = get_object_or_404(School, name=school_name)
     return render(
         request,
         "marchmadness/school_games.html",
         {
             "school_name": school_name,
-            "games": games,
+            "games": school.games(season),
             "season": season,
-            "wins": len([game for game in games if game.win]),
-            "losses": len([game for game in games if not game.win]),
+            "record": school.record(season),
         },
     )
 
 
-def evaluate(request, season, region, tournament_round, matchup, bracket=None):
+def evaluate(request, year, region, tournament_round, matchup, bracket=None):
     if not bracket:
-        bracket = Bracket(year=season)
-    group = Group.objects.get(region=region, year=season)
+        bracket = Bracket(year=year)
     if tournament_round == "first_four":
-        team_1 = group.play_in_teams.first()
-        team_2 = group.play_in_teams.last()
+        team_1_name = bracket.left_top_group.play_in_teams.first().school_name
+        team_1 = School.objects.get(name=team_1_name)
+        team_2_name = bracket.left_top_group.play_in_teams.last().school_name
+        team_2 = School.objects.get(name=team_2_name)
     return render(
         request,
         "marchmadness/evaluate.html",
         {
-            "season": season,
+            "season": bracket.season,
             "round": tournament_round,
             "matchup": matchup,
             "team_1": team_1,
+            "team_1_record": team_1.record(bracket.season),
+            "team_1_games": team_1.games(bracket.season),
             "team_2": team_2,
+            "team_2_record": team_2.record(bracket.season),
+            "team_2_games": team_2.games(bracket.season),
             "region": region,
             "bracket": bracket,
         },
