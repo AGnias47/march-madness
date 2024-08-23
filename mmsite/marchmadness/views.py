@@ -1,6 +1,8 @@
 from django.shortcuts import get_object_or_404, render
 from .models.school import School
 from .models.game import Game
+from .models.bracket import Bracket
+from .models.group import Group
 
 
 def index(request):
@@ -45,8 +47,26 @@ def school_games(request, school_name, season):
     )
 
 
-def evaluate(request, season=None):
-    return render(request, "marchmadness/evaluate.html", {"season": season})
+def evaluate(request, season, region, tournament_round, matchup, bracket=None):
+    if not bracket:
+        bracket = Bracket(year=season)
+    group = Group.objects.get(region=region, year=season)
+    if tournament_round == "first_four":
+        team_1 = group.play_in_teams.first()
+        team_2 = group.play_in_teams.last()
+    return render(
+        request,
+        "marchmadness/evaluate.html",
+        {
+            "season": season,
+            "round": tournament_round,
+            "matchup": matchup,
+            "team_1": team_1,
+            "team_2": team_2,
+            "region": region,
+            "bracket": bracket,
+        },
+    )
 
 
 def predict(request, season=None):

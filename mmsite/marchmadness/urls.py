@@ -12,6 +12,11 @@ urlpatterns = [
         name="school_games",
     ),
     path("evaluate/", views.evaluate, name="evaluate"),
+    path(
+        "evaluate/<int:season>/<str:region>/<str:tournament_round>/<str:matchup>/",
+        views.evaluate,
+        name="evaluate",
+    ),
     path("predict/", views.predict, name="predict"),
     path("predict/random", views.predict, name="predict_random"),
     path("predict/ranked", views.predict, name="predict_ranked"),
