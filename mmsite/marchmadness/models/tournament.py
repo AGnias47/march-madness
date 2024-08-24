@@ -7,6 +7,9 @@ class Tournament(models.Model):
     bottom_left_region = models.CharField(max_length=30)
     top_right_region = models.CharField(max_length=30)
     bottom_right_region = models.CharField(max_length=30)
+    left_winner = models.CharField(max_length=30)
+    right_winner = models.CharField(max_length=30)
+    champion = models.CharField(max_length=30)
 
     class Meta:
         app_label = "marchmadness"
