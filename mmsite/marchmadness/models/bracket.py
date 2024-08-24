@@ -8,7 +8,7 @@ from .group import Group
 
 
 class Bracket(models.Model):
-    year = models.IntegerField(primary_key=True, unique=True)
+    year = models.IntegerField()
     season = models.CharField(max_length=9)
     left_top_group = models.ForeignKey(
         Group, on_delete=models.CASCADE, related_name="left_top_group"

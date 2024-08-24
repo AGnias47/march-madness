@@ -44,13 +44,13 @@ def school_games(request, school_name, season):
     )
 
 
-def evaluate(request, year, region, tournament_round, matchup, bracket=None):
-    if request.method == "GET":
-        if not bracket:
+def evaluate(request, year, region, tournament_round, matchup, bracket_id=None):
+    if request.method in {"GET", "POST"}:
+        if not bracket_id:
             bracket = Bracket(year=year)
             bracket.save()
         else:
-            bracket = Bracket.objects.get(id=bracket)
+            bracket = Bracket.objects.get(id=bracket_id)
         if tournament_round == "first_four":
             team_1_name = bracket.left_top_group.play_in_teams.first().school_name
             team_1 = School.objects.get(name=team_1_name)
@@ -73,8 +73,6 @@ def evaluate(request, year, region, tournament_round, matchup, bracket=None):
                 "bracket": bracket,
             },
         )
-    else:
-        pass
 
 
 def predict(request, season=None):
