@@ -47,7 +47,7 @@ def school_games(request, school_name, season):
 
 def evaluate(request, year):
     if request.method in {"GET", "POST"}:
-        bracket = Bracket(year=year)
+        bracket = Bracket.objects.create(year=year)
         bracket.save()
         group = bracket.top_left_group
         team_1, team_2 = get_first_four_teams(group)
@@ -85,6 +85,8 @@ def select_winner(request, bracket_id, region, tournament_round, matchup, winnin
             raise ValueError(f"Invalid region: {region}")
         if matchup == "first_four":
             group.first_four_winner = winning_team
+            group.save()
+            bracket.save()
             if region == "top_left":
                 region = "bottom_left"
                 group = bracket.bottom_left_group
@@ -135,6 +137,7 @@ def select_winner(request, bracket_id, region, tournament_round, matchup, winnin
             team_1, team_2 = get_teams_from_rankings(group, 8, 9)
         elif matchup == "8_9":
             group.w_first_8_9 = winning_team
+            group.save()
             # If there are still remaining regions in the first round go to them,
             #   else go to the second round
             if region == "top_left":
@@ -173,6 +176,7 @@ def select_winner(request, bracket_id, region, tournament_round, matchup, winnin
             team_2 = group.w_first_5_12
         elif matchup == "4_5":
             group.w_second_4_5 = winning_team
+            group.save()
             if region == "top_left":
                 region = "bottom_left"
                 group = bracket.bottom_left_group
@@ -207,6 +211,7 @@ def select_winner(request, bracket_id, region, tournament_round, matchup, winnin
             team_2 = group.w_second_3_6
         elif matchup == "2_3":
             group.w_sweet_2_3 = winning_team
+            group.save()
             if region == "top_left":
                 region = "bottom_left"
                 group = bracket.bottom_left_group
@@ -236,6 +241,7 @@ def select_winner(request, bracket_id, region, tournament_round, matchup, winnin
                 raise ValueError(f"Invalid region: {region}")
         elif matchup == "1_2":
             group.group_winner = winning_team
+            group.save()
             if region == "top_left":
                 region = "bottom_left"
                 group = bracket.bottom_left_group
