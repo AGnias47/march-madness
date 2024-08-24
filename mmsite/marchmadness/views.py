@@ -52,9 +52,40 @@ def evaluate(request, year, region, tournament_round, matchup, bracket_id=None):
         else:
             bracket = Bracket.objects.get(id=bracket_id)
         if tournament_round == "first_four":
-            team_1_name = bracket.left_top_group.play_in_teams.first().school_name
+            team_1_name = bracket.top_left_group.play_in_teams.first().school_name
             team_1 = School.objects.get(name=team_1_name)
-            team_2_name = bracket.left_top_group.play_in_teams.last().school_name
+            team_2_name = bracket.top_left_group.play_in_teams.last().school_name
+            team_2 = School.objects.get(name=team_2_name)
+        return render(
+            request,
+            "marchmadness/evaluate.html",
+            {
+                "season": bracket.season,
+                "round": tournament_round,
+                "matchup": matchup,
+                "team_1": team_1,
+                "team_1_record": team_1.record(bracket.season),
+                "team_1_games": team_1.games(bracket.season),
+                "team_2": team_2,
+                "team_2_record": team_2.record(bracket.season),
+                "team_2_games": team_2.games(bracket.season),
+                "region": region,
+                "bracket": bracket,
+            },
+        )
+
+
+def select_winner(
+    request, bracket_id, tournament_round, winning_team, year, region, matchup
+):
+    if request.method == "POST":
+        bracket = Bracket.objects.get(id=bracket_id)
+        if region == "top_left":
+            pass
+        if tournament_round == "first_four":
+            team_1_name = bracket.top_left_group.play_in_teams.first().school_name
+            team_1 = School.objects.get(name=team_1_name)
+            team_2_name = bracket.top_left_group.play_in_teams.last().school_name
             team_2 = School.objects.get(name=team_2_name)
         return render(
             request,
