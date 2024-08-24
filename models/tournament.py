@@ -32,25 +32,25 @@ class MarchMadnessTournament:
         self.prediction_method_kwargs = prediction_method_kwargs
         self.left_top = Group(
             year,
-            self.tournament_info.left_top_region,
+            self.tournament_info.top_left_region,
             self.predict,
             self.prediction_method_kwargs,
         )
         self.left_bottom = Group(
             year,
-            self.tournament_info.left_bottom_region,
+            self.tournament_info.bottom_left_region,
             self.predict,
             self.prediction_method_kwargs,
         )
         self.right_top = Group(
             year,
-            self.tournament_info.right_top_region,
+            self.tournament_info.top_right_region,
             self.predict,
             self.prediction_method_kwargs,
         )
         self.right_bottom = Group(
             year,
-            self.tournament_info.right_bottom_region,
+            self.tournament_info.bottom_right_region,
             self.predict,
             self.prediction_method_kwargs,
         )
@@ -61,15 +61,15 @@ class MarchMadnessTournament:
 
     def run(self):
         if self.log_results:
-            logger.info(f"{self.tournament_info.left_top_region}  Group Rankings:")
+            logger.info(f"{self.tournament_info.top_left_region}  Group Rankings:")
             logger.info(json.dumps(self.left_top.ranking_dict, default=str, indent=2))
-            logger.info(f"{self.tournament_info.left_bottom_region} Group Rankings:")
+            logger.info(f"{self.tournament_info.bottom_left_region} Group Rankings:")
             logger.info(
                 json.dumps(self.left_bottom.ranking_dict, default=str, indent=2)
             )
-            logger.info(f"{self.tournament_info.right_top_region} Group Rankings:")
+            logger.info(f"{self.tournament_info.top_right_region} Group Rankings:")
             logger.info(json.dumps(self.right_top.ranking_dict, default=str, indent=2))
-            logger.info(f"{self.tournament_info.right_bottom_region} Group Rankings:")
+            logger.info(f"{self.tournament_info.bottom_right_region} Group Rankings:")
             logger.info(
                 json.dumps(self.right_bottom.ranking_dict, default=str, indent=2)
             )
@@ -108,16 +108,16 @@ class MarchMadnessTournament:
         left = self.predict(
             left_top,
             left_bottom,
-            group_name=f"{self.tournament_info.left_top_region}  vs. "
-            f"{self.tournament_info.left_bottom_region}",
+            group_name=f"{self.tournament_info.top_left_region}  vs. "
+            f"{self.tournament_info.bottom_left_region}",
             round_name="Final Four Game",
             **self.prediction_method_kwargs,
         )
         right = self.predict(
             right_top,
             right_bottom,
-            group_name=f"{self.tournament_info.right_top_region} vs. "
-            f"{self.tournament_info.right_bottom_region}",
+            group_name=f"{self.tournament_info.top_right_region} vs. "
+            f"{self.tournament_info.bottom_right_region}",
             round_name="Final Four Game",
             **self.prediction_method_kwargs,
         )
@@ -129,28 +129,28 @@ class MarchMadnessTournament:
         lt = self.left_top.first_four()
         if self.log_results:
             logger.info(
-                "%s First Four Winner: %s\n", self.tournament_info.left_top_region, lt
+                "%s First Four Winner: %s\n", self.tournament_info.top_left_region, lt
             )
 
         lb = self.left_bottom.first_four()
         if self.log_results:
             logger.info(
                 "%s First Four Winner: %s\n",
-                self.tournament_info.left_bottom_region,
+                self.tournament_info.bottom_left_region,
                 lb,
             )
 
         rt = self.right_top.first_four()
         if self.log_results:
             logger.info(
-                "%s Four Winner: %s\n", self.tournament_info.right_top_region, rt
+                "%s Four Winner: %s\n", self.tournament_info.top_right_region, rt
             )
 
         rb = self.right_bottom.first_four()
         if self.log_results:
             logger.info(
                 "%s First Four Winner: %s\n",
-                self.tournament_info.right_bottom_region,
+                self.tournament_info.bottom_right_region,
                 rb,
             )
 
@@ -159,27 +159,27 @@ class MarchMadnessTournament:
     def first_round(self):
         lt = self.left_top.first_round()
         if self.log_results:
-            logger.info("%s First Round Results:", self.tournament_info.left_top_region)
+            logger.info("%s First Round Results:", self.tournament_info.top_left_region)
             logger.info(json.dumps(lt, default=str, indent=2))
 
         lb = self.left_bottom.first_round()
         if self.log_results:
             logger.info(
-                "%s First Round Results:", self.tournament_info.left_bottom_region
+                "%s First Round Results:", self.tournament_info.bottom_left_region
             )
             logger.info(json.dumps(lb, default=str, indent=2))
 
         rt = self.right_top.first_round()
         if self.log_results:
             logger.info(
-                "%s First Round Results:", self.tournament_info.right_top_region
+                "%s First Round Results:", self.tournament_info.top_right_region
             )
             logger.info(json.dumps(rt, default=str, indent=2))
 
         rb = self.right_bottom.first_round()
         if self.log_results:
             logger.info(
-                "%s First Round Results:", self.tournament_info.right_bottom_region
+                "%s First Round Results:", self.tournament_info.bottom_right_region
             )
             logger.info(json.dumps(rb, default=str, indent=2))
 
@@ -189,7 +189,7 @@ class MarchMadnessTournament:
         lt_result = self.left_top.second_round(lt_r1)
         if self.log_results:
             logger.info(
-                "%s Second Round Results:", self.tournament_info.left_top_region
+                "%s Second Round Results:", self.tournament_info.top_left_region
             )
 
             logger.info(json.dumps(lt_result, default=str, indent=2))
@@ -197,21 +197,21 @@ class MarchMadnessTournament:
         lb_result = self.left_bottom.second_round(lb_r1)
         if self.log_results:
             logger.info(
-                "%s Second Round Results:", self.tournament_info.left_bottom_region
+                "%s Second Round Results:", self.tournament_info.bottom_left_region
             )
             logger.info(json.dumps(lb_result, default=str, indent=2))
 
         rt_result = self.right_top.second_round(rt_r1)
         if self.log_results:
             logger.info(
-                "%s Second Round Results:", self.tournament_info.right_top_region
+                "%s Second Round Results:", self.tournament_info.top_right_region
             )
             logger.info(json.dumps(rt_result, default=str, indent=2))
 
         rb_result = self.right_bottom.second_round(rb_r1)
         if self.log_results:
             logger.info(
-                "%s Second Round Results:", self.tournament_info.right_bottom_region
+                "%s Second Round Results:", self.tournament_info.bottom_right_region
             )
             logger.info(json.dumps(rb_result, default=str, indent=2))
 
@@ -227,28 +227,28 @@ class MarchMadnessTournament:
         lt_result = self.left_top.sweet_sixteen(lt)
         if self.log_results:
             logger.info(
-                "%s Sweet Sixteen Results:", self.tournament_info.left_top_region
+                "%s Sweet Sixteen Results:", self.tournament_info.top_left_region
             )
             logger.info(json.dumps(lt_result, default=str, indent=2))
 
         lb_result = self.left_bottom.sweet_sixteen(lb)
         if self.log_results:
             logger.info(
-                "%s Sweet Sixteen Results:", self.tournament_info.left_bottom_region
+                "%s Sweet Sixteen Results:", self.tournament_info.bottom_left_region
             )
             logger.info(json.dumps(lb_result, default=str, indent=2))
 
         rt_result = self.right_top.sweet_sixteen(rt)
         if self.log_results:
             logger.info(
-                "%s Sweet Sixteen Results:", self.tournament_info.right_top_region
+                "%s Sweet Sixteen Results:", self.tournament_info.top_right_region
             )
             logger.info(json.dumps(rt_result, default=str, indent=2))
 
         rb_result = self.right_bottom.sweet_sixteen(rb)
         if self.log_results:
             logger.info(
-                "%s Sweet Sixteen Results:", self.tournament_info.right_bottom_region
+                "%s Sweet Sixteen Results:", self.tournament_info.bottom_right_region
             )
             logger.info(json.dumps(rb_result, default=str, indent=2))
 
@@ -263,14 +263,14 @@ class MarchMadnessTournament:
         lt_winner = self.left_top.elite_eight(lt)
         if self.log_results:
             logger.info(
-                "%s Group Winner: %s\n", self.tournament_info.left_top_region, lt_winner
+                "%s Group Winner: %s\n", self.tournament_info.top_left_region, lt_winner
             )
 
         lb_winner = self.left_bottom.elite_eight(lb)
         if self.log_results:
             logger.info(
                 "%s Group Winner: %s\n",
-                self.tournament_info.left_bottom_region,
+                self.tournament_info.bottom_left_region,
                 lb_winner,
             )
 
@@ -278,7 +278,7 @@ class MarchMadnessTournament:
         if self.log_results:
             logger.info(
                 "%s Group Winner: %s\n",
-                self.tournament_info.right_top_region,
+                self.tournament_info.top_right_region,
                 rt_winner,
             )
 
@@ -286,7 +286,7 @@ class MarchMadnessTournament:
         if self.log_results:
             logger.info(
                 "%s Group Winner: %s\n",
-                self.tournament_info.right_bottom_region,
+                self.tournament_info.bottom_right_region,
                 rb_winner,
             )
 

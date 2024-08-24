@@ -1,13 +1,8 @@
-WEST = "West"
-EAST = "East"
-SOUTH = "South"
-MIDWEST = "Midwest"
-
 region_location = {
-    "left_top_region": EAST,
-    "left_bottom_region": WEST,
-    "right_top_region": SOUTH,
-    "right_bottom_region": MIDWEST,
+    "top_left_region": "East",
+    "bottom_left_region": "West",
+    "top_right_region": "South",
+    "bottom_right_region": "Midwest",
 }
 
 south = {

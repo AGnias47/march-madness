@@ -1,13 +1,8 @@
-WEST = "West"
-EAST = "East"
-SOUTH = "South"
-MIDWEST = "Midwest"
-
 region_location = {
-    "left_top_region": SOUTH,
-    "left_bottom_region": EAST,
-    "right_top_region": MIDWEST,
-    "right_bottom_region": WEST,
+    "top_left_region": "South",
+    "bottom_left_region": "East",
+    "top_right_region": "Midwest",
+    "bottom_right_region": "West",
 }
 
 south = {
@@ -49,7 +44,7 @@ east = {
     15: "Vermont",
     16: "Texas Southern",
     "play_in": "Fairleigh Dickinson",
-    "play_in_rank": 16
+    "play_in_rank": 16,
 }
 
 midwest = {

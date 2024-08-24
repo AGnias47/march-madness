@@ -131,10 +131,10 @@ def add_tournament_info(year):
         logging.error(f"No tournament rankings found for year {year}")
         raise
     defaults = {
-        "left_top_region": ranking_year.region_location["left_top_region"],
-        "left_bottom_region": ranking_year.region_location["left_bottom_region"],
-        "right_top_region": ranking_year.region_location["right_top_region"],
-        "right_bottom_region": ranking_year.region_location["right_bottom_region"],
+        "top_left_region": ranking_year.region_location["top_left_region"],
+        "bottom_left_region": ranking_year.region_location["bottom_left_region"],
+        "top_right_region": ranking_year.region_location["top_right_region"],
+        "bottom_right_region": ranking_year.region_location["bottom_right_region"],
     }
     unique_fields = {"year": year}
     Tournament.objects.update_or_create(defaults=defaults, **unique_fields)
