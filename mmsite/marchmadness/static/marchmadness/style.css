@@ -1,3 +1,7 @@
-li a {
-    color: green;
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
 }
