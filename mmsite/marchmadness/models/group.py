@@ -10,7 +10,27 @@ from .constants import MAX_SCHOOL_LEN
 class Group(models.Model):
     year = models.IntegerField()
     region = models.CharField(max_length=30)
+    # Store first four winner
     first_four_winner = models.CharField(max_length=MAX_SCHOOL_LEN)
+    # Store First Round winners
+    w_first_1_16 = models.CharField(max_length=MAX_SCHOOL_LEN)
+    w_first_2_15 = models.CharField(max_length=MAX_SCHOOL_LEN)
+    w_first_3_14 = models.CharField(max_length=MAX_SCHOOL_LEN)
+    w_first_4_13 = models.CharField(max_length=MAX_SCHOOL_LEN)
+    w_first_5_12 = models.CharField(max_length=MAX_SCHOOL_LEN)
+    w_first_6_11 = models.CharField(max_length=MAX_SCHOOL_LEN)
+    w_first_7_10 = models.CharField(max_length=MAX_SCHOOL_LEN)
+    w_first_8_9 = models.CharField(max_length=MAX_SCHOOL_LEN)
+    # Store Second Round winners
+    w_second_1_8 = models.CharField(max_length=MAX_SCHOOL_LEN)
+    w_second_2_7 = models.CharField(max_length=MAX_SCHOOL_LEN)
+    w_second_3_6 = models.CharField(max_length=MAX_SCHOOL_LEN)
+    w_second_4_5 = models.CharField(max_length=MAX_SCHOOL_LEN)
+    # Store Sweet Sixteen winners
+    w_sweet_1_4 = models.CharField(max_length=MAX_SCHOOL_LEN)
+    w_sweet_2_3 = models.CharField(max_length=MAX_SCHOOL_LEN)
+    # Store Elite Eight Group Winner
+    group_winner = models.CharField(max_length=MAX_SCHOOL_LEN)
 
     class Meta:
         app_label = "marchmadness"
