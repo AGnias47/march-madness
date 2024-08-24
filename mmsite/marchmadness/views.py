@@ -85,9 +85,26 @@ def select_winner(request, bracket_id, region, tournament_round, matchup, winnin
             raise ValueError(f"Invalid region: {region}")
         if matchup == "first_four":
             group.first_four_winner = winning_team
-            # Get teams for the first round
-            matchup = "1_16"
-            team_1, team_2 = get_teams_from_rankings(group, 1, 16)
+            if region == "top_left":
+                region = "bottom_left"
+                group = bracket.bottom_left_group
+                matchup = "first_four"
+                team_1, team_2 = get_first_four_teams(group)
+            elif region == "bottom_left":
+                region = "top_right"
+                group = bracket.top_right_group
+                matchup = "first_four"
+                team_1, team_2 = get_first_four_teams(group)
+            elif region == "top_right":
+                region = "bottom_right"
+                group = bracket.bottom_right_group
+                matchup = "first_four"
+                team_1, team_2 = get_first_four_teams(group)
+            elif region == "bottom_right":
+                region = "top_left"
+                group = bracket.top_left_group
+                matchup = "1_16"
+                team_1, team_2 = get_teams_from_rankings(group, 1, 16)
         elif matchup == "1_16":
             group.w_first_1_16 = winning_team
             matchup = "2_15"
