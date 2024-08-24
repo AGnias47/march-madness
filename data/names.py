@@ -93,6 +93,8 @@ FORMAL_TO_ABBREV = {
     "University of Nevada, Las Vegas": "UNLV",
     "Alabama Agricultural and Mechanical University": "Alabama A&M",
     "New Jersey Institute of Technology": "NJIT",
+    "Brigham Young University": "BYU",
+    "Brigham Young": "BYU",
 }
 SPECIAL_CASES = {
     "UConn": "University of Connecticut",
