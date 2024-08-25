@@ -59,7 +59,7 @@ midwest = {
     9: "TCU",
     10: "CSU",
     11: "Oregon",
-    12: "McNeese",
+    12: "McNeese State",
     13: "Samford",
     14: "Akron",
     15: "Saint Peter's",

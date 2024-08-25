@@ -95,6 +95,7 @@ FORMAL_TO_ABBREV = {
     "New Jersey Institute of Technology": "NJIT",
     "Brigham Young University": "BYU",
     "Brigham Young": "BYU",
+    "California State University, Long Beach": "Long Beach State",
 }
 SPECIAL_CASES = {
     "UConn": "University of Connecticut",

@@ -152,16 +152,19 @@ def select_winner(request, bracket_id, region, tournament_round, matchup, winnin
             #   else go to the second round
             if region == "top_left":
                 region = "bottom_left"
+                group = bracket.bottom_left_group
                 matchup = "1_16"
-                team_1, team_2 = get_first_four_teams(bracket.bottom_left_group)
+                team_1, team_2 = get_teams_from_rankings(group, 1, 16)
             elif region == "bottom_left":
                 region = "top_right"
+                group = bracket.top_right_group
                 matchup = "1_16"
-                team_1, team_2 = get_first_four_teams(bracket.top_right_group)
+                team_1, team_2 = get_teams_from_rankings(group, 1, 16)
             elif region == "top_right":
                 region = "bottom_right"
+                group = bracket.bottom_right_group
                 matchup = "1_16"
-                team_1, team_2 = get_first_four_teams(bracket.bottom_right_group)
+                team_1, team_2 = get_teams_from_rankings(group, 1, 16)
             elif region == "bottom_right":
                 region = "top_left"
                 group = bracket.top_left_group
