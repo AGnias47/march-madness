@@ -7,10 +7,10 @@
     <title>Evaluate {{ season }} March Madness</title>
 </head>
 <body>
-    <h2>{{ round }}</h2>
+    <h2>{{ round }} - {{ region_name }}</h2>
     <div class="row">
         <div class="column">
-            <h3>{{ team_1.name }}</h3>
+            <h3>{{ team_1_rank }}. {{ team_1.name }}</h3>
             <form action="{% url 'select_winner' bracket.id region round matchup team_1.name %}" method="POST">
                 {% csrf_token %}
                 <button type="submit" name="submit_team_1">Pick {{ team_1.name }}</button>
@@ -41,7 +41,7 @@
                     {% endfor %}
         </div>
         <div class="column">
-            <h3>{{ team_2.name }}</h3>
+            <h3>{{ team_2_rank }}. {{ team_2.name }}</h3>
             <form action="{% url 'select_winner' bracket.id region round matchup team_2.name %}" method="POST">
                 {% csrf_token %}
                 <button type="submit" name="submit_team_2">Pick {{ team_2.name }}</button>

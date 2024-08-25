@@ -1,4 +1,6 @@
 from django.shortcuts import get_object_or_404, render
+
+from .models import TournamentRanking
 from .models.school import School
 from .models.bracket import Bracket
 from .helpers import get_first_four_teams, get_teams_from_rankings
@@ -59,12 +61,19 @@ def evaluate(request, year):
                 "round": "First Four",
                 "matchup": "first_four",
                 "team_1": team_1,
+                "team_1_rank": TournamentRanking.objects.get(
+                    school_name=team_1.name, year=year
+                ).ranking,
                 "team_1_record": team_1.record(bracket.season),
                 "team_1_games": team_1.games(bracket.season),
                 "team_2": team_2,
+                "team_2_rank": TournamentRanking.objects.get(
+                    school_name=team_2.name, year=year
+                ).ranking,
                 "team_2_record": team_2.record(bracket.season),
                 "team_2_games": team_2.games(bracket.season),
                 "region": "top_left",
+                "region_name": group.region,
                 "bracket": bracket,
             },
         )
@@ -105,6 +114,7 @@ def select_winner(request, bracket_id, region, tournament_round, matchup, winnin
             elif region == "bottom_right":
                 region = "top_left"
                 group = bracket.top_left_group
+                tournament_round = "First Round"
                 matchup = "1_16"
                 team_1, team_2 = get_teams_from_rankings(group, 1, 16)
         elif matchup == "1_16":
@@ -236,7 +246,7 @@ def select_winner(request, bracket_id, region, tournament_round, matchup, winnin
                 matchup = "1_2"
                 team_1 = group.w_sweet_1_4
                 team_2 = group.w_sweet_2_3
-                tournament_round = "Sweet Sixteen"
+                tournament_round = "Elite Eight"
             else:
                 raise ValueError(f"Invalid region: {region}")
         elif matchup == "1_2":
@@ -276,6 +286,7 @@ def select_winner(request, bracket_id, region, tournament_round, matchup, winnin
             matchup = "championship"
             team_1 = bracket.left_winner
             team_2 = bracket.right_winner
+            tournament_round = "National Championship"
         elif matchup == "championship":
             bracket.champion = winning_team
             return render(
@@ -297,12 +308,19 @@ def select_winner(request, bracket_id, region, tournament_round, matchup, winnin
                 "round": tournament_round,
                 "matchup": matchup,
                 "team_1": team_1,
+                "team_1_rank": TournamentRanking.objects.get(
+                    school_name=team_1.name, year=bracket.year
+                ).ranking,
                 "team_1_record": team_1.record(bracket.season),
                 "team_1_games": team_1.games(bracket.season),
                 "team_2": team_2,
+                "team_2_rank": TournamentRanking.objects.get(
+                    school_name=team_2.name, year=bracket.year
+                ).ranking,
                 "team_2_record": team_2.record(bracket.season),
                 "team_2_games": team_2.games(bracket.season),
                 "region": region,
+                "region_name": group.region,
                 "bracket": bracket,
             },
         )
