@@ -20,7 +20,7 @@ south = {
     12: "James Madison",
     13: "Vermont",
     14: "Oakland",
-    15: "Western KY",
+    15: "Western Kentucky",
     16: "Longwood",
     "play_in": "Boise State",
     "play_in_rank": 10,

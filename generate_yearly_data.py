@@ -120,8 +120,8 @@ def add_tournament_rankings(year):
         raise
     add_tournament_rankings_helper(ranking_year.west, WEST, year)
     add_tournament_rankings_helper(ranking_year.east, EAST, year)
-    add_tournament_rankings_helper(ranking_year.south, MIDWEST, year)
-    add_tournament_rankings_helper(ranking_year.midwest, SOUTH, year)
+    add_tournament_rankings_helper(ranking_year.south, SOUTH, year)
+    add_tournament_rankings_helper(ranking_year.midwest, MIDWEST, year)
 
 
 def add_tournament_info(year):
