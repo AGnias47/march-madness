@@ -11,7 +11,7 @@ class Group(models.Model):
     year = models.IntegerField()
     region = models.CharField(max_length=30)
     # Store first four winner
-    four_winner = models.CharField(max_length=MAX_SCHOOL_LEN)
+    first_four_winner = models.CharField(max_length=MAX_SCHOOL_LEN)
     # Store First Round winners
     w_1_16 = models.CharField(max_length=MAX_SCHOOL_LEN)
     w_2_15 = models.CharField(max_length=MAX_SCHOOL_LEN)

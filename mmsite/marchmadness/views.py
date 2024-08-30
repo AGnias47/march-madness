@@ -118,9 +118,15 @@ def school_games(request, school_name, season):
     )
 
 
-def evaluate(request, year, game_id=0):
+def initialize_bracket(request, year):
+    bracket = Bracket.objects.create(year=year)
+    bracket.save()
+    return evaluate(request, bracket.id, 0)
+
+
+def evaluate(request, bracket_id, game_id):
     if request.method in {"GET", "POST"}:
-        bracket = Bracket.objects.create(year=year)
+        bracket = Bracket.objects.get(id=bracket_id)
         bracket.save()
         game = GAMES[game_id]
         matchup = game[2]
@@ -137,17 +143,17 @@ def evaluate(request, year, game_id=0):
             "marchmadness/evaluate.html",
             {
                 "season": bracket.season,
-                "round": "First Four",
-                "matchup": "first_four",
+                "round": game[1],
+                "matchup": matchup,
                 "team_1": team_1,
                 "team_1_rank": TournamentRanking.objects.get(
-                    school_name=team_1.name, year=year
+                    school_name=team_1.name, year=bracket.year
                 ).ranking,
                 "team_1_record": team_1.record(bracket.season),
                 "team_1_games": team_1.games(bracket.season),
                 "team_2": team_2,
                 "team_2_rank": TournamentRanking.objects.get(
-                    school_name=team_2.name, year=year
+                    school_name=team_2.name, year=bracket.year
                 ).ranking,
                 "team_2_record": team_2.record(bracket.season),
                 "team_2_games": team_2.games(bracket.season),
@@ -171,7 +177,7 @@ def select_winner(request, bracket_id, game_id, winning_team):
             setattr(group, f"w_{matchup}", winning_team)
         group.save()
         bracket.save()
-        return evaluate(request, bracket.year, game_id + 1)
+        return evaluate(request, bracket.id, game_id + 1)
 
 
 def predict(request, season=None):

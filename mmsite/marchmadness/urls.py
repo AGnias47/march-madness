@@ -12,12 +12,17 @@ urlpatterns = [
         name="school_games",
     ),
     path(
+        "initialize_bracket/<int:year>/",
+        views.initialize_bracket,
+        name="initialize_bracket",
+    ),
+    path(
         "evaluate/<int:year>/",
         views.evaluate,
         name="evaluate",
     ),
     path(
-        "select_winner/<str:bracket_id>/<str:region>/<str:tournament_round>/<str:matchup>/<str:winning_team>",
+        "select_winner/<str:bracket_id>/<int:game_id>/<str:winning_team>",
         views.select_winner,
         name="select_winner",
     ),
