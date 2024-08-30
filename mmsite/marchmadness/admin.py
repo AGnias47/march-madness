@@ -7,7 +7,6 @@ from .models.school import School
 from .models.tournament import Tournament
 from .models.tournament_ranking import TournamentRanking
 
-
 admin.site.register(APRanking)
 admin.site.register(Game)
 admin.site.register(Rivalry)

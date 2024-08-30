@@ -2,10 +2,10 @@ from collections import namedtuple
 
 from django.shortcuts import get_object_or_404, render
 
-from .models import TournamentRanking
-from .models.school import School
-from .models.bracket import Bracket
 from .helpers import get_first_four_teams, get_teams_from_rankings
+from .models import TournamentRanking
+from .models.bracket import Bracket
+from .models.school import School
 
 Game = namedtuple("Game", ["region", "round", "matchup"])
 

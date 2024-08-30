@@ -3,8 +3,9 @@ Manages user picks
 """
 
 from django.db import models
-from .tournament_ranking import TournamentRanking
+
 from .constants import MAX_SCHOOL_LEN
+from .tournament_ranking import TournamentRanking
 
 
 class Group(models.Model):

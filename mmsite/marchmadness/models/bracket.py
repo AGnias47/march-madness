@@ -3,10 +3,11 @@ Manages user picks
 """
 
 from django.db import models
-from .tournament import Tournament
-from .group import Group
 from django.dispatch import receiver
+
 from .constants import MAX_SCHOOL_LEN
+from .group import Group
+from .tournament import Tournament
 
 
 @receiver(models.signals.pre_save)

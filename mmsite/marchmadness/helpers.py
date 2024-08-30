@@ -1,5 +1,6 @@
-from .models.school import School
 from django.core.exceptions import MultipleObjectsReturned
+
+from .models.school import School
 
 
 def get_teams_from_rankings(group, team_1_ranking, team_2_ranking):
