@@ -236,8 +236,10 @@ def select_winner(request, bracket_id, region, tournament_round, matchup, winnin
         elif matchup == "1_4":
             group.w_sweet_1_4 = winning_team
             matchup = "2_3"
-            team_1 = group.w_second_2_7
-            team_2 = group.w_second_3_6
+            team_1_name = group.w_second_2_7
+            team_1 = School.objects.get(name=team_1_name)
+            team_2_name = group.w_second_3_6
+            team_2 = School.objects.get(name=team_2_name)
         elif matchup == "2_3":
             group.w_sweet_2_3 = winning_team
             group.save()
@@ -245,26 +247,34 @@ def select_winner(request, bracket_id, region, tournament_round, matchup, winnin
                 region = "bottom_left"
                 group = bracket.bottom_left_group
                 matchup = "1_4"
-                team_1 = group.w_second_1_8
-                team_2 = group.w_second_4_5
+                team_1_name = group.w_second_1_8
+                team_1 = School.objects.get(name=team_1_name)
+                team_2_name = group.w_second_4_5
+                team_2 = School.objects.get(name=team_2_name)
             elif region == "bottom_left":
                 region = "top_right"
                 group = bracket.top_right_group
                 matchup = "1_4"
-                team_1 = group.w_second_1_8
-                team_2 = group.w_second_4_5
+                team_1_name = group.w_second_1_8
+                team_1 = School.objects.get(name=team_1_name)
+                team_2_name = group.w_second_4_5
+                team_2 = School.objects.get(name=team_2_name)
             elif region == "top_right":
                 region = "bottom_right"
                 group = bracket.bottom_right_group
                 matchup = "1_4"
-                team_1 = group.w_second_1_8
-                team_2 = group.w_second_4_5
+                team_1_name = group.w_second_1_8
+                team_1 = School.objects.get(name=team_1_name)
+                team_2_name = group.w_second_4_5
+                team_2 = School.objects.get(name=team_2_name)
             elif region == "bottom_right":
                 region = "top_left"
                 group = bracket.top_left_group
                 matchup = "1_2"
-                team_1 = group.w_sweet_1_4
-                team_2 = group.w_sweet_2_3
+                team_1_name = group.w_sweet_1_4
+                team_1 = School.objects.get(name=team_1_name)
+                team_2_name = group.w_sweet_2_3
+                team_2 = School.objects.get(name=team_2_name)
                 tournament_round = "Elite Eight"
             else:
                 raise ValueError(f"Invalid region: {region}")
@@ -274,37 +284,49 @@ def select_winner(request, bracket_id, region, tournament_round, matchup, winnin
             if region == "top_left":
                 region = "bottom_left"
                 group = bracket.bottom_left_group
-                team_1 = group.w_sweet_1_4
-                team_2 = group.w_sweet_2_3
+                team_1_name = group.w_sweet_1_4
+                team_1 = School.objects.get(name=team_1_name)
+                team_2_name = group.w_sweet_2_3
+                team_2 = School.objects.get(name=team_2_name)
             elif region == "bottom_left":
                 region = "top_right"
                 group = bracket.top_right_group
-                team_1 = group.w_sweet_1_4
-                team_2 = group.w_sweet_2_3
+                team_1_name = group.w_sweet_1_4
+                team_1 = School.objects.get(name=team_1_name)
+                team_2_name = group.w_sweet_2_3
+                team_2 = School.objects.get(name=team_2_name)
             elif region == "top_right":
                 region = "bottom_right"
                 group = bracket.bottom_right_group
-                team_1 = group.w_sweet_1_4
-                team_2 = group.w_sweet_2_3
+                team_1_name = group.w_sweet_1_4
+                team_1 = School.objects.get(name=team_1_name)
+                team_2_name = group.w_sweet_2_3
+                team_2 = School.objects.get(name=team_2_name)
             elif region == "bottom_right":
                 region = "top_left"
                 group = bracket.top_left_group
                 matchup = "ff_left"
-                team_1 = bracket.top_left_group.winner
-                team_2 = bracket.bottom_left_group.winner
+                team_1_name = bracket.top_left_group.group_winner
+                team_1 = School.objects.get(name=team_1_name)
+                team_2_name = bracket.bottom_left_group.group_winner
+                team_2 = School.objects.get(name=team_2_name)
                 tournament_round = "Final Four"
             else:
                 raise ValueError(f"Invalid region: {region}")
         elif matchup == "ff_left":
             bracket.left_winner = winning_team
             matchup = "ff_right"
-            team_1 = bracket.top_right_group.winner
-            team_2 = bracket.bottom_right_group.winner
+            team_1_name = bracket.top_right_group.group_winner
+            team_1 = School.objects.get(name=team_1_name)
+            team_2_name = bracket.bottom_right_group.group_winner
+            team_2 = School.objects.get(name=team_2_name)
         elif matchup == "ff_right":
             bracket.right_winner = winning_team
             matchup = "championship"
-            team_1 = bracket.left_winner
-            team_2 = bracket.right_winner
+            team_1_name = bracket.left_winner
+            team_1 = School.objects.get(name=team_1_name)
+            team_2_name = bracket.right_winner
+            team_2 = School.objects.get(name=team_2_name)
             tournament_round = "National Championship"
         elif matchup == "championship":
             bracket.champion = winning_team
