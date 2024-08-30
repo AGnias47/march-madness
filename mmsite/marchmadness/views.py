@@ -129,21 +129,65 @@ def evaluate(request, bracket_id, game_id):
         bracket = Bracket.objects.get(id=bracket_id)
         bracket.save()
         game = GAMES[game_id]
+        region = game[0]
+        tournament_round = game[1]
         matchup = game[2]
-        group = getattr(bracket, f"{game[0]}_group")
-        if matchup == "first_four":
+        try:
+            group = getattr(bracket, f"{region}_group")
+            region_name = group.region
+        except AttributeError:  # None for Final Four and Championship
+            group = None
+            region_name = None
+        if tournament_round == "First Four":
             team_1, team_2 = get_first_four_teams(group)
-        else:
+        elif tournament_round == "First Round":
             team_1_rank, team_2_rank = int(matchup.split("_")[0]), int(
                 matchup.split("_")[1]
             )
             team_1, team_2 = get_teams_from_rankings(group, team_1_rank, team_2_rank)
+        elif tournament_round in {"Second Round", "Sweet Sixteen", "Elite Eight"}:
+            if matchup == "1_8":
+                team_1_name = group.w_1_16
+                team_2_name = group.w_8_9
+            elif matchup == "2_7":
+                team_1_name = group.w_2_15
+                team_2_name = group.w_7_10
+            elif matchup == "3_6":
+                team_1_name = group.w_3_14
+                team_2_name = group.w_6_11
+            elif matchup == "4_5":
+                team_1_name = group.w_4_13
+                team_2_name = group.w_5_12
+            elif matchup == "1_4":
+                team_1_name = group.w_1_8
+                team_2_name = group.w_4_5
+            elif matchup == "2_3":
+                team_1_name = group.w_2_7
+                team_2_name = group.w_3_6
+            elif matchup == "1_2":
+                team_1_name = group.w_1_4
+                team_2_name = group.w_2_3
+            else:
+                raise ValueError("Invalid Matchup")
+            team_1 = School.objects.get(name=team_1_name)
+            team_2 = School.objects.get(name=team_2_name)
+        elif matchup == "ff_left":
+            team_1 = School.objects.get(name=bracket.top_left_group.winner)
+            team_2 = School.objects.get(name=bracket.bottom_left_group.winner)
+        elif matchup == "ff_right":
+            team_1 = School.objects.get(name=bracket.top_right_group.winner)
+            team_2 = School.objects.get(name=bracket.bottom_right_group.winner)
+        elif matchup == "championship":
+            team_1 = School.objects.get(name=bracket.left_winner)
+            team_2 = School.objects.get(name=bracket.right_winner)
+        else:
+            raise ValueError("Invalid matchup")
         return render(
             request,
             "marchmadness/evaluate.html",
             {
                 "season": bracket.season,
-                "round": game[1],
+                "round": tournament_round,
                 "matchup": matchup,
                 "team_1": team_1,
                 "team_1_rank": TournamentRanking.objects.get(
@@ -158,7 +202,7 @@ def evaluate(request, bracket_id, game_id):
                 "team_2_record": team_2.record(bracket.season),
                 "team_2_games": team_2.games(bracket.season),
                 "region": "top_left",
-                "region_name": group.region,
+                "region_name": region_name,
                 "bracket": bracket,
                 "game_id": game_id,
             },
@@ -169,14 +213,34 @@ def select_winner(request, bracket_id, game_id, winning_team):
     if request.method == "POST":
         bracket = Bracket.objects.get(id=bracket_id)
         region = GAMES[game_id][0]
-        group = getattr(bracket, f"{region}_group")
+        try:
+            group = getattr(bracket, f"{region}_group")
+        except AttributeError:  # None for Final Four and Championship
+            group = None
         matchup = GAMES[game_id][2]
         if matchup == "first_four":
             setattr(group, "first_four_winner", winning_team)
+        elif matchup == "1_2":
+            setattr(group, "winner", winning_team)
+        elif matchup == "ff_left":
+            bracket.left_winner = winning_team
+        elif matchup == "ff_right":
+            bracket.right_winner = winning_team
+        elif matchup == "championship":
+            bracket.champion = winning_team
         else:
             setattr(group, f"w_{matchup}", winning_team)
-        group.save()
+        if group:
+            group.save()
         bracket.save()
+        if matchup == "championship":
+            return render(
+                request,
+                "marchmadness/bracket.html",
+                {
+                    "bracket": bracket,
+                },
+            )
         return evaluate(request, bracket.id, game_id + 1)
 
 

@@ -7,7 +7,11 @@
     <title>Evaluate {{ season }} March Madness</title>
 </head>
 <body>
-    <h2>{{ round }} - {{ region_name }}</h2>
+    {% if region_name %}
+        <h2>{{ round }} - {{ region_name }}</h2>
+    {% else %}
+        <h2>{{ round }}</h2>
+    {% endif %}
     <div class="row">
         <div class="column">
             <h3>{{ team_1_rank }}. {{ team_1.name }}</h3>
