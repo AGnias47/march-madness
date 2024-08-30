@@ -1,3 +1,5 @@
+from collections import namedtuple
+
 from django.shortcuts import get_object_or_404, render
 
 from .models import TournamentRanking
@@ -5,75 +7,76 @@ from .models.school import School
 from .models.bracket import Bracket
 from .helpers import get_first_four_teams, get_teams_from_rankings
 
+Game = namedtuple("Game", ["region", "round", "matchup"])
 
 GAMES = [
-    ("top_left", "First Four", "first_four"),
-    ("bottom_left", "First Four", "first_four"),
-    ("top_right", "First Four", "first_four"),
-    ("bottom_right", "First Four", "first_four"),
-    ("top_left", "First Round", "1_16"),
-    ("top_left", "First Round", "2_15"),
-    ("top_left", "First Round", "3_14"),
-    ("top_left", "First Round", "4_13"),
-    ("top_left", "First Round", "5_12"),
-    ("top_left", "First Round", "6_11"),
-    ("top_left", "First Round", "7_10"),
-    ("top_left", "First Round", "8_9"),
-    ("bottom_left", "First Round", "1_16"),
-    ("bottom_left", "First Round", "2_15"),
-    ("bottom_left", "First Round", "3_14"),
-    ("bottom_left", "First Round", "4_13"),
-    ("bottom_left", "First Round", "5_12"),
-    ("bottom_left", "First Round", "6_11"),
-    ("bottom_left", "First Round", "7_10"),
-    ("bottom_left", "First Round", "8_9"),
-    ("top_right", "First Round", "1_16"),
-    ("top_right", "First Round", "2_15"),
-    ("top_right", "First Round", "3_14"),
-    ("top_right", "First Round", "4_13"),
-    ("top_right", "First Round", "5_12"),
-    ("top_right", "First Round", "6_11"),
-    ("top_right", "First Round", "7_10"),
-    ("top_right", "First Round", "8_9"),
-    ("bottom_right", "First Round", "1_16"),
-    ("bottom_right", "First Round", "2_15"),
-    ("bottom_right", "First Round", "3_14"),
-    ("bottom_right", "First Round", "4_13"),
-    ("bottom_right", "First Round", "5_12"),
-    ("bottom_right", "First Round", "6_11"),
-    ("bottom_right", "First Round", "7_10"),
-    ("bottom_right", "First Round", "8_9"),
-    ("top_left", "Second Round", "1_8"),
-    ("top_left", "Second Round", "2_7"),
-    ("top_left", "Second Round", "3_6"),
-    ("top_left", "Second Round", "4_5"),
-    ("bottom_left", "Second Round", "1_8"),
-    ("bottom_left", "Second Round", "2_7"),
-    ("bottom_left", "Second Round", "3_6"),
-    ("bottom_left", "Second Round", "4_5"),
-    ("top_right", "Second Round", "1_8"),
-    ("top_right", "Second Round", "2_7"),
-    ("top_right", "Second Round", "3_6"),
-    ("top_right", "Second Round", "4_5"),
-    ("bottom_right", "Second Round", "1_8"),
-    ("bottom_right", "Second Round", "2_7"),
-    ("bottom_right", "Second Round", "3_6"),
-    ("bottom_right", "Second Round", "4_5"),
-    ("top_left", "Sweet Sixteen", "1_4"),
-    ("top_left", "Sweet Sixteen", "2_3"),
-    ("bottom_left", "Sweet Sixteen", "1_4"),
-    ("bottom_left", "Sweet Sixteen", "2_3"),
-    ("top_right", "Sweet Sixteen", "1_4"),
-    ("top_right", "Sweet Sixteen", "2_3"),
-    ("bottom_right", "Sweet Sixteen", "1_4"),
-    ("bottom_right", "Sweet Sixteen", "2_3"),
-    ("top_left", "Elite Eight", "1_2"),
-    ("bottom_left", "Elite Eight", "1_2"),
-    ("top_right", "Elite Eight", "1_2"),
-    ("bottom_right", "Elite Eight", "1_2"),
-    ("final_four", "Final Four", "ff_left"),
-    ("final_four", "Final Four", "ff_right"),
-    ("championship", "National Championship", "championship"),
+    Game("top_left", "First Four", "first_four"),
+    Game("bottom_left", "First Four", "first_four"),
+    Game("top_right", "First Four", "first_four"),
+    Game("bottom_right", "First Four", "first_four"),
+    Game("top_left", "First Round", "1_16"),
+    Game("top_left", "First Round", "2_15"),
+    Game("top_left", "First Round", "3_14"),
+    Game("top_left", "First Round", "4_13"),
+    Game("top_left", "First Round", "5_12"),
+    Game("top_left", "First Round", "6_11"),
+    Game("top_left", "First Round", "7_10"),
+    Game("top_left", "First Round", "8_9"),
+    Game("bottom_left", "First Round", "1_16"),
+    Game("bottom_left", "First Round", "2_15"),
+    Game("bottom_left", "First Round", "3_14"),
+    Game("bottom_left", "First Round", "4_13"),
+    Game("bottom_left", "First Round", "5_12"),
+    Game("bottom_left", "First Round", "6_11"),
+    Game("bottom_left", "First Round", "7_10"),
+    Game("bottom_left", "First Round", "8_9"),
+    Game("top_right", "First Round", "1_16"),
+    Game("top_right", "First Round", "2_15"),
+    Game("top_right", "First Round", "3_14"),
+    Game("top_right", "First Round", "4_13"),
+    Game("top_right", "First Round", "5_12"),
+    Game("top_right", "First Round", "6_11"),
+    Game("top_right", "First Round", "7_10"),
+    Game("top_right", "First Round", "8_9"),
+    Game("bottom_right", "First Round", "1_16"),
+    Game("bottom_right", "First Round", "2_15"),
+    Game("bottom_right", "First Round", "3_14"),
+    Game("bottom_right", "First Round", "4_13"),
+    Game("bottom_right", "First Round", "5_12"),
+    Game("bottom_right", "First Round", "6_11"),
+    Game("bottom_right", "First Round", "7_10"),
+    Game("bottom_right", "First Round", "8_9"),
+    Game("top_left", "Second Round", "1_8"),
+    Game("top_left", "Second Round", "2_7"),
+    Game("top_left", "Second Round", "3_6"),
+    Game("top_left", "Second Round", "4_5"),
+    Game("bottom_left", "Second Round", "1_8"),
+    Game("bottom_left", "Second Round", "2_7"),
+    Game("bottom_left", "Second Round", "3_6"),
+    Game("bottom_left", "Second Round", "4_5"),
+    Game("top_right", "Second Round", "1_8"),
+    Game("top_right", "Second Round", "2_7"),
+    Game("top_right", "Second Round", "3_6"),
+    Game("top_right", "Second Round", "4_5"),
+    Game("bottom_right", "Second Round", "1_8"),
+    Game("bottom_right", "Second Round", "2_7"),
+    Game("bottom_right", "Second Round", "3_6"),
+    Game("bottom_right", "Second Round", "4_5"),
+    Game("top_left", "Sweet Sixteen", "1_4"),
+    Game("top_left", "Sweet Sixteen", "2_3"),
+    Game("bottom_left", "Sweet Sixteen", "1_4"),
+    Game("bottom_left", "Sweet Sixteen", "2_3"),
+    Game("top_right", "Sweet Sixteen", "1_4"),
+    Game("top_right", "Sweet Sixteen", "2_3"),
+    Game("bottom_right", "Sweet Sixteen", "1_4"),
+    Game("bottom_right", "Sweet Sixteen", "2_3"),
+    Game("top_left", "Elite Eight", "1_2"),
+    Game("bottom_left", "Elite Eight", "1_2"),
+    Game("top_right", "Elite Eight", "1_2"),
+    Game("bottom_right", "Elite Eight", "1_2"),
+    Game("final_four", "Final Four", "ff_left"),
+    Game("final_four", "Final Four", "ff_right"),
+    Game("championship", "National Championship", "championship"),
 ]
 
 
@@ -129,55 +132,52 @@ def evaluate(request, bracket_id, game_id):
         bracket = Bracket.objects.get(id=bracket_id)
         bracket.save()
         game = GAMES[game_id]
-        region = game[0]
-        tournament_round = game[1]
-        matchup = game[2]
         try:
-            group = getattr(bracket, f"{region}_group")
+            group = getattr(bracket, f"{game.region}_group")
             region_name = group.region
         except AttributeError:  # None for Final Four and Championship
             group = None
             region_name = None
-        if tournament_round == "First Four":
+        if game.round == "First Four":
             team_1, team_2 = get_first_four_teams(group)
-        elif tournament_round == "First Round":
-            team_1_rank, team_2_rank = int(matchup.split("_")[0]), int(
-                matchup.split("_")[1]
+        elif game.round == "First Round":
+            team_1_rank, team_2_rank = int(game.matchup.split("_")[0]), int(
+                game.matchup.split("_")[1]
             )
             team_1, team_2 = get_teams_from_rankings(group, team_1_rank, team_2_rank)
-        elif tournament_round in {"Second Round", "Sweet Sixteen", "Elite Eight"}:
-            if matchup == "1_8":
+        elif game.round in {"Second Round", "Sweet Sixteen", "Elite Eight"}:
+            if game.matchup == "1_8":
                 team_1_name = group.w_1_16
                 team_2_name = group.w_8_9
-            elif matchup == "2_7":
+            elif game.matchup == "2_7":
                 team_1_name = group.w_2_15
                 team_2_name = group.w_7_10
-            elif matchup == "3_6":
+            elif game.matchup == "3_6":
                 team_1_name = group.w_3_14
                 team_2_name = group.w_6_11
-            elif matchup == "4_5":
+            elif game.matchup == "4_5":
                 team_1_name = group.w_4_13
                 team_2_name = group.w_5_12
-            elif matchup == "1_4":
+            elif game.matchup == "1_4":
                 team_1_name = group.w_1_8
                 team_2_name = group.w_4_5
-            elif matchup == "2_3":
+            elif game.matchup == "2_3":
                 team_1_name = group.w_2_7
                 team_2_name = group.w_3_6
-            elif matchup == "1_2":
+            elif game.matchup == "1_2":
                 team_1_name = group.w_1_4
                 team_2_name = group.w_2_3
             else:
                 raise ValueError("Invalid Matchup")
             team_1 = School.objects.get(name=team_1_name)
             team_2 = School.objects.get(name=team_2_name)
-        elif matchup == "ff_left":
+        elif game.matchup == "ff_left":
             team_1 = School.objects.get(name=bracket.top_left_group.winner)
             team_2 = School.objects.get(name=bracket.bottom_left_group.winner)
-        elif matchup == "ff_right":
+        elif game.matchup == "ff_right":
             team_1 = School.objects.get(name=bracket.top_right_group.winner)
             team_2 = School.objects.get(name=bracket.bottom_right_group.winner)
-        elif matchup == "championship":
+        elif game.matchup == "championship":
             team_1 = School.objects.get(name=bracket.left_winner)
             team_2 = School.objects.get(name=bracket.right_winner)
         else:
@@ -187,8 +187,8 @@ def evaluate(request, bracket_id, game_id):
             "marchmadness/evaluate.html",
             {
                 "season": bracket.season,
-                "round": tournament_round,
-                "matchup": matchup,
+                "round": game.round,
+                "matchup": game.matchup,
                 "team_1": team_1,
                 "team_1_rank": TournamentRanking.objects.get(
                     school_name=team_1.name, year=bracket.year
@@ -217,23 +217,23 @@ def select_winner(request, bracket_id, game_id, winning_team):
             group = getattr(bracket, f"{region}_group")
         except AttributeError:  # None for Final Four and Championship
             group = None
-        matchup = GAMES[game_id][2]
-        if matchup == "first_four":
+        game = GAMES[game_id]
+        if game.matchup == "first_four":
             setattr(group, "first_four_winner", winning_team)
-        elif matchup == "1_2":
+        elif game.matchup == "1_2":
             setattr(group, "winner", winning_team)
-        elif matchup == "ff_left":
+        elif game.matchup == "ff_left":
             bracket.left_winner = winning_team
-        elif matchup == "ff_right":
+        elif game.matchup == "ff_right":
             bracket.right_winner = winning_team
-        elif matchup == "championship":
+        elif game.matchup == "championship":
             bracket.champion = winning_team
         else:
-            setattr(group, f"w_{matchup}", winning_team)
+            setattr(group, f"w_{game.matchup}", winning_team)
         if group:
             group.save()
         bracket.save()
-        if matchup == "championship":
+        if game.matchup == "championship":
             return render(
                 request,
                 "marchmadness/bracket.html",
