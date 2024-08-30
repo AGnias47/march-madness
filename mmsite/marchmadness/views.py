@@ -12,6 +12,16 @@ def index(request):
     return render(request, "marchmadness/index.html", context)
 
 
+def archive(request, year):
+    return render(
+        request,
+        "marchmadness/archive.html",
+        {
+            "year": year,
+        },
+    )
+
+
 def school(request):
     schools = School.objects.all()
     schools = sorted(schools, key=lambda x: x.name)

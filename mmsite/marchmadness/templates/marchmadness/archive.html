@@ -7,16 +7,11 @@
     <title>March Madness</title>
   </head>
   <body>
-    <h1>{{ welcome_message }}</h1>
-    <p><a href="{% url 'school' %}">View Schools</a></p>
-    <h2>Current Season</h2>
+    <h2>{{ year }}</h2>
     <ul>
-      <li><a href="{% url 'initialize_bracket' 2024 %}">Guided selection</a></li>
+      <li><a href="{% url 'initialize_bracket' year %}">Guided selection</a></li>
       <li><a href="{% url 'predict' %}">Prediction Methods</a></li>
+      <li><a href="{% url 'index' %}">Back to Current Year</a></li>
     </ul>
-    <h2>Previous Seasons</h2>
-      <ul>
-        <li><a href="{% url 'archive' 2023 %}">2023</a></li>
-      </ul>
   </body>
 </html>

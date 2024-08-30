@@ -11,6 +11,7 @@ urlpatterns = [
         views.school_games,
         name="school_games",
     ),
+    path("archive/<int:year>/", views.archive, name="archive"),
     path(
         "initialize_bracket/<int:year>/",
         views.initialize_bracket,
