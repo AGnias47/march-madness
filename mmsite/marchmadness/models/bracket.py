@@ -6,6 +6,7 @@ from django.db import models
 from .tournament import Tournament
 from .group import Group
 from django.dispatch import receiver
+from .constants import MAX_SCHOOL_LEN
 
 
 @receiver(models.signals.pre_save)
@@ -29,6 +30,9 @@ class Bracket(models.Model):
     bottom_right_group = models.ForeignKey(
         Group, on_delete=models.CASCADE, related_name="bottom_right_group"
     )
+    left_winner = models.CharField(max_length=MAX_SCHOOL_LEN)
+    right_winner = models.CharField(max_length=MAX_SCHOOL_LEN)
+    champion = models.CharField(max_length=MAX_SCHOOL_LEN)
 
     class Meta:
         app_label = "marchmadness"

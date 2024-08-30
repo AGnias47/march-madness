@@ -30,7 +30,7 @@ class Group(models.Model):
     w_sweet_1_4 = models.CharField(max_length=MAX_SCHOOL_LEN)
     w_sweet_2_3 = models.CharField(max_length=MAX_SCHOOL_LEN)
     # Store Elite Eight Group Winner
-    group_winner = models.CharField(max_length=MAX_SCHOOL_LEN)
+    winner = models.CharField(max_length=MAX_SCHOOL_LEN)
 
     class Meta:
         app_label = "marchmadness"

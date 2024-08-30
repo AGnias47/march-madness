@@ -279,7 +279,7 @@ def select_winner(request, bracket_id, region, tournament_round, matchup, winnin
             else:
                 raise ValueError(f"Invalid region: {region}")
         elif matchup == "1_2":
-            group.group_winner = winning_team
+            group.winner = winning_team
             group.save()
             if region == "top_left":
                 region = "bottom_left"
@@ -306,9 +306,9 @@ def select_winner(request, bracket_id, region, tournament_round, matchup, winnin
                 region = "top_left"
                 group = bracket.top_left_group
                 matchup = "ff_left"
-                team_1_name = bracket.top_left_group.group_winner
+                team_1_name = bracket.top_left_group.winner
                 team_1 = School.objects.get(name=team_1_name)
-                team_2_name = bracket.bottom_left_group.group_winner
+                team_2_name = bracket.bottom_left_group.winner
                 team_2 = School.objects.get(name=team_2_name)
                 tournament_round = "Final Four"
             else:
@@ -316,9 +316,9 @@ def select_winner(request, bracket_id, region, tournament_round, matchup, winnin
         elif matchup == "ff_left":
             bracket.left_winner = winning_team
             matchup = "ff_right"
-            team_1_name = bracket.top_right_group.group_winner
+            team_1_name = bracket.top_right_group.winner
             team_1 = School.objects.get(name=team_1_name)
-            team_2_name = bracket.bottom_right_group.group_winner
+            team_2_name = bracket.bottom_right_group.winner
             team_2 = School.objects.get(name=team_2_name)
         elif matchup == "ff_right":
             bracket.right_winner = winning_team
