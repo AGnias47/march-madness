@@ -45,18 +45,18 @@ Alternatively, you can import the contents of `db/march_madness.sql` via `psql -
 
 Evaluation Mode can be run via the Django UI. Run `cd mmsite; python manage.py runserver` and then navigate to http://localhost:8000/marchmadness.
 
-Click "Guided Selection" and go through the process of selecting teams. At the end, the selected winners for each round will be displayed. Links for previous years also exist.
+Click "Guided Selection" and go through the process of selecting teams. When complete, the selected winners for each round will be displayed.
 
 ### Shell
 
-By default, the repo is set to guide the user through manually picking teams. This is done by running the following commands:
+By default, the `run.py` script guides the user through manually picking teams for the current year. Run the following:
 
 ```shell
 ./run.py  # Go through selections
 open NCAA_Tournament_Results.log  # Display selection results
 ```
 
-Different years can be evaluated via the `-y` parameter, ex `./run.py -y <tournament_year>`
+Different years can be evaluated via the `-y` parameter, ex `./run.py -y 2023`
 
 ## Usage - Automated Prediction Methods
 
@@ -71,7 +71,7 @@ Automated methods that use an algorithm to decide matchups are defined as predic
 
 ### Sample Usage
 
-#### 
+Currently, automated prediction can only be run via a shell, i.e. not via the Django app.
 
 ```shell
 ./run.py -p random           # Random Selection for the current year
