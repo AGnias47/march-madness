@@ -7,6 +7,48 @@ The project offers an Evaluation and a Prediction Mode for creating a bracket.
 * Evaluation Mode guides users through selecting a March Madness bracket, providing relevant information throughout the process
 * Prediction Mode automatically selects a March Madness bracket through various prediction methods.
 
+## Prerequisites
+
+* Python (3.12 officially supported)
+* Docker engine (ex. Docker Desktop)
+* psql (16.3 used in development)
+
+## Setup
+
+### 1. Start and initialize database
+
+Start the postgres database via Docker with `docker compose up -d`. Once running, initialize the database via `psql -h localhost -p 5432 -U postgres -c "CREATE DATABASE march_madness;"`. The default DB password is `postgres`. The postgres container uses a volume mount, so data will persist if the container itself is stopped or deleted.
+
+### 2. Check that rankings file exists
+
+Check that a file called `tournament_rankings.r<current_year>` exists for the desired tournament year. If not, see [docs/adding_a_new_year.md](docs/adding_a_new_year.md).
+
+### 3. Add data
+
+Data is scraped from external sources and stored in the database. 
+
+The database can be populated by running the following scripts:
+
+```shell
+cd mmsite
+python manage.py migrate  # Runs DB migrations
+cd ..
+python generate_static_data.py
+python generate_yearly_data.py  # Runs for current year by default
+```
+
+Alternatively, you can import the contents of `db/march_madness.sql` via `psql -h localhost -p 5432 -U postgres -d march_madness -a -f db/march_madness.sql`.
+
+## Usage - User Evaluation
+
+### UI
+
+Evaluation Mode can be run via the Django UI. Run `cd mmsite; python manage.py runserver` and then navigate to http://localhost:8000/marchmadness.
+
+Click "Guided Selection" and go through the process of selecting teams. At the end, the selected winners for each round will be displayed. Links for previous years also exist.
+
+### Shell
+
 By default, the repo is set to guide the user through manually picking teams. This is done by running the following commands:
 
 ```shell
@@ -14,57 +56,12 @@ By default, the repo is set to guide the user through manually picking teams. Th
 open NCAA_Tournament_Results.log  # Display selection results
 ```
 
-More detailed usage information is provided below.
+Different years can be evaluated via the `-y` parameter, ex `./run.py -y <tournament_year>`
 
-## Setup
-
-### 1. Database Generation
-
-Data is scraped from external sources and stored in a Postgres database hosted on a Docker container. The database can be populated by importing the contents of `db/march_madness.sql` via ` make newdb`. Alternatively, you can regenerate the static data from external sources by running the database generation script with the `schools` option enabled: `python generate_db_data.py -s`.
-
-### 2. Add Current Tournament Rankings
-
-Create a file in `tournament_rankings.r<year>.py`. Following the format of previous years, create 4 dictionaries with the key as the school's ranking and the value as the school's name. The dictionaries should be named `south`, `east`, `midwest`, and `west` for each region. As of now, there is no automated way to generate this. 
-
-Additionally, confer with the bracket to see where each region is located in the bracket, ex. top-right, bottom-left, etc., and update these orientations in `models/tournament.py:35-57`. As of now, there is no automated way to do this.
-
-### 3. Add Current Tournament Info to Database
-
-The imported database will have data on schools, which will be constant year to year. However, data for games, AP rankings, tournament rankings, and tournament info will need to be added every year. This can be done with the database generation script with the following options enabled: `python generate_db_data.py -gati`.
-
-Once complete, you can also export the data via `make exportdb` so that the updated database file is accessible elsewhere.
-
-## Run Evaluations
-
-User-guided methods are defined as evaluation methods. Currently, the evaluation method 
-works by presenting the user with some basic info, with the option to present more, such 
-as recent games and more school info. The user then selects a team for each matchup, or 
-defers to a random selection. This method runs by default for the latest march madness 
-year, but can also be overridden for any year 2022 or later with the `-y` parameter.
-
-### Sample Usage
-
-#### Run the evaluation for the current year
-
-```shell
-./run.py  
-```
-
-or
-
-```shell
-./run.py -e
-```
-
-#### Run the evaluation for a different year
-
-```shell
-./run.py -e -y 2022
-```
-
-## Prediction Methods
+## Usage - Automated Prediction Methods
 
 Automated methods that use an algorithm to decide matchups are defined as prediction methods. The desired prediction method should be provided to the `-p` parameter from one of the methods listed below:
+
 * `random` - Pure random choice
 * `lptr` - Weighted random choice. Teams with a higher ranking are more likely to be selected to win, where weighing is done by the difference in ranking on a linearly proportional scale. AP rankings are also considered in this choice.
 * `sigmodal` - Weighted random choice. Teams with a higher ranking are more likely to be selected to win, where weighing is done by the difference in ranking on a sigmoidal scale. AP rankings are also considered in this choice. The parameter `k` is used to determine the shape of the sigmodal curve. By default, `k=.33`, which closely emulates the behavior of a sigmodal curve without a scaling factor. `k` can be adjusted via the command line parameter `-k`, where a higher value will make the sigmodal curve more closely emulate a step function, and a lower value will make it more closely emulate a horizontal line. Run `./visualize_weight_functions.py` to see the effect of altering `k`.
@@ -74,27 +71,17 @@ Automated methods that use an algorithm to decide matchups are defined as predic
 
 ### Sample Usage
 
-#### Random Selection for the current year
+#### 
 
 ```shell
-./run.py -p random
-```
-
-#### Weighted LPTR selection for 2022
-
-```shell
-./run.py -p lptr -y 2022
-```
-
-#### Weighted Sigmodal selection with overriding value of k
-
-```shell
-./run.py -p sigmodal -k 0.5
+./run.py -p random           # Random Selection for the current year
+./run.py -p lptr -y 2022     # Weighted LPTR selection for 2022
+./run.py -p sigmodal -k 0.5  # Weighted Sigmodal selection with overriding value of k
 ```
 
 ## Results
 
-Results are stored in `NCAA_Tournament_Results.log`. The file is always appended to, so should be removed between subsequent runs. As of June 2023, there is no automated way to create a bracket on a site such as espn.com with these results, so they must be entered manually.
+Results are stored in `NCAA_Tournament_Results.log`. The file is always appended to, so should be removed between subsequent runs. There is no automated way to create a bracket on a site such as espn.com with these results, so they must be entered manually.
 
 ## Future Work
 
