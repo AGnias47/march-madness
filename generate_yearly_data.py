@@ -143,9 +143,7 @@ def add_tournament_info(year):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--year", "-y", type=int, default=CURRENT_YEAR)
-    parser.add_argument(
-        "--no-games", "-e", action="store_true", default="False", help="Don't add games"
-    )
+    parser.add_argument("--no-games", "-e", action="store_true", help="Don't add games")
     args = parser.parse_args()
     year = args.year
     logging.info(f"Adding tournament info for {year}")
