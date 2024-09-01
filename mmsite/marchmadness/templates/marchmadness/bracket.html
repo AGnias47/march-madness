@@ -1,3 +1,5 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'marchmadness/bracket.css' %}">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,5 +8,50 @@
 </head>
 <body>
 <h1>National Champion: {{ bracket.champion }}</h1>
+{% for group in bracket.groups %}
+<div class="row">
+    <div class="column">
+        <h2>{{ group.region }}</h2>
+        <h3>First Round Winners</h3>
+        <ul>
+            <li>{{ group.w_1_16 }}</li>
+            <li>{{ group.w_8_9 }}</li>
+            <li>{{ group.w_5_12 }}</li>
+            <li>{{ group.w_4_13 }}</li>
+            <li>{{ group.w_6_11 }}</li>
+            <li>{{ group.w_3_14 }}</li>
+            <li>{{ group.w_7_10 }}</li>
+            <li>{{ group.w_2_15 }}</li>
+        </ul>
+        <h3>Second Round Winners</h3>
+        <ul>
+            <li>{{ group.w_1_8 }}</li>
+            <li>{{ group.w_4_5 }}</li>
+            <li>{{ group.w_3_6 }}</li>
+            <li>{{ group.w_2_7 }}</li>
+        </ul>
+        <h3>Sweet Sixteen Winners</h3>
+        <ul>
+            <li>{{ group.w_1_4 }}</li>
+            <li>{{ group.w_2_3 }}</li>
+        </ul>
+        <h3>Elite Eight Winners</h3>
+        <ul>
+            <li>{{ group.winner }}</li>
+        </ul>
+    </div>
+{% endfor %}
+</div>
+<div class="row">
+    <h2>Final Four Winners</h2>
+    <ul>
+        <li>{{ bracket.left_winner }}</li>
+        <li>{{ bracket.right_winner }}</li>
+    </ul>
+    <h2>National Champion</h2>
+    <ul>
+        <li>{{ bracket.champion }}</li>
+    </ul>
+</div>
 </body>
 </html>

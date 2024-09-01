@@ -54,3 +54,12 @@ class Bracket(models.Model):
         self.bottom_right_group = Group.objects.create(
             year=self.year, region=self.tournament_info.bottom_right_region
         )
+
+    @property
+    def groups(self):
+        return [
+            self.top_left_group,
+            self.bottom_left_group,
+            self.top_right_group,
+            self.bottom_right_group,
+        ]
