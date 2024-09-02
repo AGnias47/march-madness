@@ -39,6 +39,10 @@ python generate_yearly_data.py  # Runs for current year by default
 
 Alternatively, you can import the contents of `db/march_madness.sql` via `psql -h localhost -p 5432 -U postgres -d march_madness -a -f db/march_madness.sql`.
 
+### 4. Create an .env file
+
+Certain environment variables must be set for the app to run. For development and running locally, copying `mmsite/.env.sample` to `mmsite/.env` is sufficient.
+
 ## Usage - User Evaluation
 
 ### UI
