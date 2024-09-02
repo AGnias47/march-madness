@@ -41,7 +41,7 @@ Alternatively, you can import the contents of `db/march_madness.sql` via `psql -
 
 ### 4. Create an .env file
 
-Certain environment variables must be set for the app to run. For development and running locally, copying `mmsite/.env.sample` to `mmsite/.env` is sufficient.
+Settings are configured via environment variables, which are loaded automatically when defined in `mmiste/.env`. For local development and use, the values from `mmsite/.env.sample` can be used as is.
 
 ## Usage - User Evaluation
 
