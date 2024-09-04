@@ -12,6 +12,5 @@ requests==2.31.0
 requests-ratelimiter==0.4.2
 tqdm==4.66.1
 us==3.1.1
-waitress==3.0.0
 webcolors==1.13
 whitenoise==6.7.0
