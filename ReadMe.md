@@ -12,6 +12,9 @@ The project offers an Evaluation and a Prediction Mode for creating a bracket.
 * Python (3.12 officially supported)
 * Docker engine (ex. Docker Desktop)
 * psql (16.3 used in development)
+* pip (24.2 used in development)
+* 3rd party dependencies installed via `pip install -r requirements{,dev,sentiment}.txt`
+  * `requirements_sentiment.txt` is only required for the `nickname` prediction method
 
 ## Setup
 
