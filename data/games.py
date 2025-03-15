@@ -38,7 +38,11 @@ def get_regular_season_games(session, season_year=2023):
         for row in rows:
             row = [r for r in row]
             day_and_month = row[0].text.strip()
-            game_date = dateutil.parser.parse(f"{day_and_month}, {season_year}").date()
+            try:
+                game_date = dateutil.parser.parse(f"{day_and_month}, {season_year}").date()
+            except Exception:
+                print(f"Error parsing game date {day_and_month}, {season_year}")
+                continue
             if game_date.month > 4:
                 game_date -= relativedelta(years=1)
             opponent = (
@@ -63,7 +67,8 @@ def get_regular_season_games(session, season_year=2023):
             elif "T" in score:
                 win = None
             else:
-                raise ValueError("Invalid win-loss character detected: %s", score[0])
+                print("Invalid win-loss character detected: %s", score[0])
+                continue
             team_games.append(
                 {
                     "game_date": game_date,

@@ -18,15 +18,19 @@ The project offers an Evaluation and a Prediction Mode for creating a bracket.
 
 ## Setup
 
-### 1. Start and initialize database
+### 1. Create an .env file
+
+Settings are configured via environment variables, which are loaded automatically when defined in `mmiste/.env`. For local development and use, the values from `mmsite/.env.sample` can be used as is.
+
+### 2. Start and initialize database
 
 Start the postgres database via Docker with `docker compose up -d`. Once running, initialize the database via `psql -h localhost -p 5432 -U postgres -c "CREATE DATABASE march_madness;"`. The default DB password is `postgres`. The postgres container uses a volume mount, so data will persist if the container itself is stopped or deleted.
 
-### 2. Check that rankings file exists
+### 3. Check that rankings file exists
 
 Check that a file called `tournament_rankings.r<current_year>` exists for the desired tournament year. If not, see [docs/adding_a_new_year.md](docs/adding_a_new_year.md).
 
-### 3. Add data
+### 4. Add data
 
 Data is scraped from external sources and stored in the database. 
 
@@ -41,10 +45,6 @@ python generate_yearly_data.py  # Runs for current year by default
 ```
 
 Alternatively, you can import the contents of `db/march_madness.sql` via `psql -h localhost -p 5432 -U postgres -d march_madness -a -f db/march_madness.sql`.
-
-### 4. Create an .env file
-
-Settings are configured via environment variables, which are loaded automatically when defined in `mmiste/.env`. For local development and use, the values from `mmsite/.env.sample` can be used as is.
 
 ## Usage - User Evaluation
 
