@@ -97,6 +97,7 @@ FORMAL_TO_ABBREV = {
     "Brigham Young": "BYU",
     "California State University, Long Beach": "Long Beach State",
     "University of Nebraska-Lincoln": "Nebraska",
+    "Southern Illinois University Edwardsville": "SIUE",
 }
 SPECIAL_CASES = {
     "UConn": "University of Connecticut",

@@ -13,6 +13,8 @@ def get_teams_from_rankings(group, team_1_ranking, team_2_ranking):
         if not_play_in.count() > 0:
             raise e
         team_1 = School.objects.get(name=group.first_four_winner)
+    except:
+        raise RuntimeError(f"Could not find {team_1_name}")
     try:
         team_2_name = group.team(team_2_ranking).school_name
         team_2 = School.objects.get(name=team_2_name)
@@ -22,12 +24,17 @@ def get_teams_from_rankings(group, team_1_ranking, team_2_ranking):
         if not_play_in.count() > 0:
             raise e
         team_2 = School.objects.get(name=group.first_four_winner)
+    except:
+        raise RuntimeError(f"Could not find {team_2_name}")
     return team_1, team_2
 
 
 def get_first_four_teams(group):
     team_1_name = group.play_in_teams.first().school_name
-    team_1 = School.objects.get(name=team_1_name)
-    team_2_name = group.play_in_teams.last().school_name
-    team_2 = School.objects.get(name=team_2_name)
+    try:
+        team_1 = School.objects.get(name=team_1_name)
+        team_2_name = group.play_in_teams.last().school_name
+        team_2 = School.objects.get(name=team_2_name)
+    except:
+        raise RuntimeError(f"Could not find team {team_1_name}")
     return team_1, team_2
